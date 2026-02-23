@@ -5,7 +5,30 @@ class PropertyScraper:
     def __init__(self, url):
         self.url = url
         self.soup = None
-        self.data = {}
+        self.data = {
+            # Non-boolean fields (default None)
+            'Locality': None,
+            'Type of property': None,
+            'Subtype of property': None,
+            'Price': None,
+            'Type of sale': None,
+            'Number of rooms': None,
+            'Living Area': None,
+            'Terrace Area': None,
+            'Garden Area': None,
+            'Surface of the land': None,
+            'Surface area of the plot of land': None,
+            'Number of facades': None,
+            'State of the building': None,
+            
+            # Boolean fields (default 0 = No)
+            'Fully equipped kitchen': 0,
+            'Furnished': 0,
+            'Open fire': 0,
+            'Terrace': 0,
+            'Garden': 0,
+            'Swimming pool': 0
+        }
         self.scrape()
 
     def scrape(self):
