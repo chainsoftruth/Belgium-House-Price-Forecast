@@ -43,6 +43,7 @@ class PropertyScraper:
         self.extract_property_type(self.data['Subtype of property'])
         self.extract_price()
         self.extract_sale_type()
+        self.extract_number_of_rooms()
         print("Scraping completed.")
 
 
@@ -53,6 +54,7 @@ class PropertyScraper:
             cleaned_text = re.sub(r'^-\s+', '', raw_text)
             self.data['Locality'] = cleaned_text
             print(f"  Found locality: {self.data['Locality']}")
+
 
     def extract_property_subtype(self):
         match = re.search(r'/detail/([^/]+)/', self.url)
@@ -113,14 +115,25 @@ class PropertyScraper:
                     self.data['Type of sale'] = 'Life sale'
                     break
 
+    def extract_number_of_rooms(self):
+        elem = self.soup.select_one('div.data-row-wrapper:has(h4:contains("Number of bedrooms")) p')
+        if elem:
+            raw_text = elem.get_text(strip=True)
+            print(f"  Raw number of rooms text: '{raw_text}'")
+            clean_text = re.sub(r'[^\d]', '', raw_text)
+            if clean_text:
+                self.data['Number of rooms'] = int(clean_text)
+            else:
+                self.data['Number of rooms'] = "None"
+            print(f"  Found number of rooms: {self.data['Number of rooms']}")
 
 
 
 
 # url = "https://immovlan.be/en/detail/apartment/for-sale/1081/koekelberg/vbd48962"
-# url = "https://immovlan.be/en/detail/residence/for-sale/1180/ukkel/vbd21625"
+url = "https://immovlan.be/en/detail/residence/for-sale/1180/ukkel/vbd21625"
 # url = "https://immovlan.be/en/detail/ground-floor/for-sale/1030/schaarbeek/vbd13483"
-url = "https://immovlan.be/en/detail/apartment/for-sale/1080/sint-jans-molenbeek/vbd65143"
+# url = "https://immovlan.be/en/detail/apartment/for-sale/1080/sint-jans-molenbeek/vbd65143"
 scraper = PropertyScraper(url)
 
 # Print the result
@@ -129,3 +142,4 @@ print(f"Data property subtype: {scraper.data['Subtype of property']}")
 print(f"Data property type: {scraper.data['Type of property']}")
 print(f"Data price: {scraper.data['Price']}")
 print(f"Data sale type: {scraper.data['Type of sale']}")
+print(f"Data number of rooms: {scraper.data['Number of rooms']}")
