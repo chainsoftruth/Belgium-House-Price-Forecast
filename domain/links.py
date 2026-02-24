@@ -1,6 +1,8 @@
 import requests
-from bs4 import BeautifulSoup as bs
 import re
+from bs4 import BeautifulSoup as bs
+from scraper.py import PropertyScraper
+from price_range.py import PriceRanges as pr
 
 class Links():
     _LINK = [
@@ -14,20 +16,25 @@ class Links():
         "537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36")
         }
     
-    def __init__(self, price_ranges: list[dict[str:int]]):
-        self.price_ranges: list[dict[str:int]] = price_ranges
+    def __init__(self):
         self._links: list[str] = []
 
     def scrape(self) -> list[str]:
-        for range_dict in self.price_ranges:
-            pages = range_dict["amount"] // 20 
-            + (1 if range_dict["amount"] else 0)
+        price_range = {"min": 1, "max": 50000000}
+        results_left = pr.check_range(price_range["min"], price_range["max"])
+        while results_left > 0:
+            pages = results_left // 20 
+            + (1 if results_left % 20 else 0)
+            if pages > 50:
+                pages = 50
             links_list = self.scrape_range(
-                range_dict["minprice"],
-                range_dict["maxprice"],
+                price_range["min"],
+                price_range["max"],
                 pages
             )
             self._links.extend(links_list)
+            price_range["min"] = self.get_price(self._links[-1])
+            results_left = pr.check_range(price_range["min"], price_range["max"])
         self.cleaner()
         return self._links
 
@@ -53,10 +60,15 @@ class Links():
                     links.append(article.get("data-url"))
         return links
     
+    @staticmethod
+    def get_price(link: str) -> int:
+        prop_scraper = PropertyScraper(link)
+        return prop_scraper.data["Price"]
+
     def cleaner(self):
         values = self._links
         result = []
         for v in values:
-            if v != None and v.find("projectdetail") == -1:
+            if v != None and v.find("projectdetail") == -1 and v not in result:
                 result.append(v)
         self._links = result

@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import re
+
 class PropertyScraper:
     def __init__(self, url):
         self.url = url
