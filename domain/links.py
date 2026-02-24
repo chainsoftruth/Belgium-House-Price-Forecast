@@ -57,6 +57,6 @@ class Links():
         values = self._links
         result = []
         for v in values:
-            if v != None:
+            if v != None and v.find("projectdetail") == -1:
                 result.append(v)
         self._links = result
