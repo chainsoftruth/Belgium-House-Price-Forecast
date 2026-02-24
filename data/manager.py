@@ -13,8 +13,8 @@ class DataManager():
     @staticmethod
     def links_export(links: list[str]):
         """Exporting links to .txt"""
-        with open("./links.txt", "w") as file:
-            for link in links.links:
+        with open("./data/links.txt", "w") as file:
+            for link in links:
                 file.write(f"{link}\n")
     
     @staticmethod
