@@ -1,14 +1,4 @@
 class DataManager():
-    
-    @staticmethod
-    def ranges_export(ranges_list: list[dict[str: int]]):
-        """Exporting ranges to .json"""
-        pass
-    
-    @staticmethod
-    def ranges_import() -> list[dict[str: int]]:
-        """Importing ranges from .json"""
-        pass
 
     @staticmethod
     def links_export(links: list[str]):
