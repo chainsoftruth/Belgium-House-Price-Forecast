@@ -5,15 +5,14 @@ import re
 class PriceRanges():
 
     def init(self):
-        self._step = .1
         self.ranges = []
+        self._prev_adj = {"increase": True, "num": 50000}
+        self._absolute_max = 50000000
 
     def check_range(self, minprice: int, maxprice: int) -> int:
         """
         Returns:
-        1 if range too large
-        0 if range OK
-        -1 if range too little
+        amount of results
         """
 
         url = (
@@ -68,15 +67,34 @@ for minp, maxp in tests:
 #_________________________________________________
 
 
-    def adjust_range(self, min_max: list[int], increase: bool) -> list[int]:
-        pass
+    def adjust_range(
+        self, min_max: dict[str: int], increase: bool) -> dict[str: int]:
+        # adjust_range({"minprice": n, "maxprice: m"}, True/False)
+        if increase and self._prev_adj["increase"]:
+            self._prev_adj["num"] *= 2
+            min_max["maxprice"] += self._prev_adj["num"]
+        elif not increase and self._prev_adj["increase"]:
+            self._prev_adj["increase"] = False
+            self._prev_adj["num"] //= 2
+            min_max["maxprice"] -= self._prev_adj["num"]
+        elif increase and not self._prev_adj["increase"]:
+            self._prev_adj["increase"] = True
+            self._prev_adj["num"] //= 2
+            min_max["maxprice"] += self._prev_adj["num"]
+        elif not increase and not self._prev_adj["increase"]:
+            min_max["maxprice"] -= self._prev_adj["num"]
+        return min_max
 
-    def append_range(
-        self, minprice: int, maxprice: int, results_amount: int
-    ):
-        pass
+    def append_range(self, minprice: int, maxprice: int, results_amount: int):
+        self.ranges.append(
+            {
+                "minprice": minprice,
+                "maxprice": maxprice,
+                "results_amount": results_amount
+            }
+        )
 
-    def fill_ranges():
+    def fill_ranges(self):
         """
         Method creates all ranges from lowest price to highest
         It creates range
@@ -84,7 +102,24 @@ for minp, maxp in tests:
         adjust_range() if needed
         append_range when OK.
         """
-        pass
+        min_max = {"minprice": 1, "maxprice": 100000}
+        if self.ranges != []:
+            min_max["minprice"] = self.ranges[-1]["maxprice"] + 1
+        while True:
+            amount = self.check_range(min_max["minprice"], min_max["maxprice"])
+            if amount > 800 and amount < 1000:
+                append_range(min_max["minprice"], min_max["maxprice"], amount)
+                break
+            elif amount < 800:
+                min_max = adjust_range({
+                    "minprice": min,
+                    "maxprice": max
+                }, True)
+            elif amount > 1000:
+                min_max = adjust_range({
+                    "minprice": min,
+                    "maxprice": max
+                }, False)
 
 #_______________________________________________________
 def get_results_count(minprice, maxprice):
