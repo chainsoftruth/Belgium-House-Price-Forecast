@@ -31,7 +31,6 @@ class PriceRanges():
         if not results_div:
             return -2
         text = results_div.get_text(" ", strip = True).lower()
-
         match = re.search(r"(\d+)\s+results", text)
         if match:
             return int(match.group(1))
