@@ -1,5 +1,9 @@
+import requests
+from bs4 import BeautifulSoup
+import re
+
 class PriceRanges():
-    
+
     def __init__(self):
         #self.ranges = []
         #self._prev_adj = {"increase": True, "num": 50000}
