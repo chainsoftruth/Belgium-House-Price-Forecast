@@ -34,7 +34,7 @@ class PropertyScraper:
         self.scrape()
 
     def scrape(self):
-        print(f"Scraping data from {self.url}...")
+        #print(f"Scraping data from {self.url}...")
         response = self.session.get(self.url)
         response.raise_for_status()
         self.soup = BeautifulSoup(response.text, 'html.parser')
@@ -53,7 +53,7 @@ class PropertyScraper:
         self.extract_furnished()  
         self.extract_swimming_pool()
         return self.data 
-        print("Scraping completed.")
+        #print("Scraping completed.")
 
 
     def extract_locality(self):
@@ -62,14 +62,14 @@ class PropertyScraper:
             raw_text = elem.get_text(strip=True)
             cleaned_text = re.sub(r'^-\s+', '', raw_text)
             self.data['Locality'] = cleaned_text
-            print(f"  Found locality: {self.data['Locality']}")
+            #print(f"  Found locality: {self.data['Locality']}")
 
 
     def extract_property_subtype(self):
         match = re.search(r'/detail/([^/]+)/', self.url)
         if match:
                 self.data['Subtype of property'] = match.group(1)
-                print(f"  Found property subtype from URL: {self.data['Subtype of property']}")
+                #print(f"  Found property subtype from URL: {self.data['Subtype of property']}")
 
     def extract_property_type(self, subtype):
         house_subtypes = [
@@ -98,7 +98,7 @@ class PropertyScraper:
                 self.data['Price'] = int(clean_text)
             else:
                 self.data['Price'] = "None"
-            print(f"  Found price: {self.data['Price']}")
+            #print(f"  Found price: {self.data['Price']}")
 
     def extract_sale_type(self):
         financial = self.soup.find('div', class_='financial')
@@ -134,7 +134,7 @@ class PropertyScraper:
                 raw_text = value.get_text(strip=True)
                 clean_text = re.sub(r'[^\d]', '', raw_text)
                 self.data["Number of rooms"] = int(clean_text) if clean_text else None
-                print(f"Found number of rooms: {self.data['Number of rooms']}")
+                #print(f"Found number of rooms: {self.data['Number of rooms']}")
 
 
     def extract_living_area(self):
@@ -147,7 +147,7 @@ class PropertyScraper:
                 raw_text = value.get_text(strip=True)
                 clean_text = re.sub(r'[^\d]', '', raw_text)
                 self.data["Living Area"] = int(clean_text) if clean_text else None
-                print(f"Found living area: {self.data['Living Area']}")
+                #print(f"Found living area: {self.data['Living Area']}")
 
 
     def extract_surface_of_the_land(self):
@@ -160,7 +160,7 @@ class PropertyScraper:
                 raw_text = value.get_text(strip=True)
                 clean_text = re.sub(r'[^\d]', '', raw_text)
                 self.data["Surface of the land"] = int(clean_text) if clean_text else None
-                print(f"Found surface of the land: {self.data['Surface of the land']}")
+                #print(f"Found surface of the land: {self.data['Surface of the land']}")
 
 
     def extract_number_of_facades(self):
@@ -173,7 +173,7 @@ class PropertyScraper:
                 raw_text = value.get_text(strip=True)
                 clean_text = re.sub(r'[^\d]', '', raw_text)
                 self.data["Number of facades"] = int(clean_text) if clean_text else None
-                print(f"Found number of facades: {self.data['Number of facades']}")
+                #print(f"Found number of facades: {self.data['Number of facades']}")
 
 
     def extract_terrace(self):
@@ -192,7 +192,7 @@ class PropertyScraper:
                 raw_text2 = value2.get_text(strip=True)
                 clean_text = re.sub(r'[^\d]', '', raw_text2)
                 self.data["Terrace Area"] = int(clean_text) if clean_text else None
-                print(f"Found terrace area: {self.data['Terrace Area']}")
+                #print(f"Found terrace area: {self.data['Terrace Area']}")
                 
 
     def extract_garden(self):
@@ -211,7 +211,7 @@ class PropertyScraper:
                 raw_text2 = value2.get_text(strip=True)
                 clean_text = re.sub(r'[^\d]', '', raw_text2)
                 self.data["Garden Area"] = int(clean_text) if clean_text else None
-                print(f"Found garden area: {self.data['Garden Area']}")
+                #print(f"Found garden area: {self.data['Garden Area']}")
 
 
     def extract_state_of_the_building(self):
@@ -223,7 +223,7 @@ class PropertyScraper:
                 value = row.select_one("p")
                 raw_text = value.get_text(strip=True)
                 self.data["State of the building"] = raw_text if raw_text else None
-                print(f"Found state of the building: {self.data['State of the building']}")
+                #print(f"Found state of the building: {self.data['State of the building']}")
 
 
     def extract_furnished(self):
