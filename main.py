@@ -16,7 +16,7 @@ def update_links() -> list[str]:
 # DataManager.links_export(links)
 # OR 
 links = DataManager.links_import()
-links = links[:10]
+links = links[:5]
 data_list = []
 for link in links:
     scraper = PropertyScraper(link)
@@ -25,4 +25,4 @@ for link in links:
 for data in data_list:
     print(data)
 
-DataManager.data_csv_export(data)
+# DataManager.data_csv_export(data)

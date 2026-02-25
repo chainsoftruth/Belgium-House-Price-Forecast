@@ -14,7 +14,7 @@ class DataManager():
             lines = [line.strip() for line in file if line.strip()]
         return lines
 
-    def data_csv_export(data: link[dict[str: str]]):
+    def data_csv_export(data: list[dict[str: str]]):
         """Exporting data list (list of dicts) into ./data/dataset.csv"""
         pass
 
