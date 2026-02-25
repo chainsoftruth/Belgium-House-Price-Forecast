@@ -45,7 +45,9 @@ def scrape_property(link):
         print(f"Error scraping {link}: {e}")
         return None
 
-update_dataset()
+links = update_links()
+DataManager.links_export(links)
+#update_dataset()
 data = DataManager.data_csv_import()
-print(data)
+print(data.head(10))
 dc.check(data)
