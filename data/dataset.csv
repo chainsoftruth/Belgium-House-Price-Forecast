@@ -1,0 +1,11 @@
+Locality,Type of property,Subtype of property,Price,Type of sale,Number of rooms,Living Area,Terrace Area,Garden Area,Surface of the land,Number of facades,State of the building,Furnished,Terrace,Garden,Swimming pool
+Herstal,unknown,mixed-building,None,Life sale,2,95,,,,3,Normal,0,1,0,0
+Rumbeke,house,bungalow,1,Normal sale,3,126,12,438,580,4,To be renovated,0,1,1,0
+Klerken,house,villa,None,Normal sale,3,203,,,634,4,Excellent,0,1,1,0
+Mariembourg,house,residence,620,Normal sale,1,72,,800,895,4,,0,0,1,0
+Mazée,house,residence,1100,Normal sale,3,255,,169,374,3,,0,0,1,0
+Arlon,house,mansion,None,Normal sale,2,209,,,34508,4,Excellent,0,1,1,0
+Theux,house,bungalow,10000,Life sale,1,,,,1043,4,,0,0,1,0
+Blankenberge,apartment,apartment,10000,Normal sale,0,10,,,,,,0,0,0,0
+Marchienne-au-Pont,apartment,duplex,14999,Normal sale,3,97,26,,,2,Normal,0,1,0,0
+Gosselies,apartment,apartment,15000,Life sale,2,77,48,,,2,Excellent,0,1,0,0

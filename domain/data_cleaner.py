@@ -7,7 +7,7 @@ class DataCleaner():
         print("------DataFrame check------")
         print("Empty values:")
         for col in data:
-            print(f"{col}: {col.}")
+            print(f"{col}: {col}")
     
     @staticmethod
     def optimize(data: pd.DataFrame) -> pd.DataFrame:
