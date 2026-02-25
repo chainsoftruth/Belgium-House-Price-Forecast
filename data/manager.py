@@ -13,3 +13,9 @@ class DataManager():
         with open("./data/links.txt", "r") as file:
             lines = [line.strip() for line in file if line.strip()]
         return lines
+
+    def data_csv_export():
+        pass
+
+    def data_csv_import():
+        pass
