@@ -42,7 +42,7 @@ class DataManager():
         """
         dataset = pd.read_csv("./data/dataset.csv", na_values = ["None", "", "unknown"])
         strings = ["Locality", "Type of property", "Subtype of property", 
-        "Type of sale", "State of the building"]
+        "State of the building"]
         numbers = ["Price", "Number of rooms", "Living Area", "Terrace Area",
         "Garden Area", "Surface of the land", "Number of facades"]
         booleans = ["Furnished", "Terrace", "Garden", "Swimming pool"]
