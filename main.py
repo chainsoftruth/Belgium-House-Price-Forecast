@@ -13,6 +13,21 @@ def update_links() -> list[str]:
     print("SCRAPED: OK")
     return links_list
 
+def update_dataset():
+    links = DataManager.links_import()
+    links = links[:100]
+    data_list = []
+    with ThreadPoolExecutor(max_workers=10) as executor:
+        # Submit all links as futures
+        futures = [executor.submit(scrape_property, link) for link in links]
+
+        # Process results as soon as each future completes
+        for future in tqdm(as_completed(futures), total=len(futures)):
+            data = future.result()
+            if data is not None:
+                data_list.append(data)
+    DataManager.data_csv_export(data_list)
+
 def scrape_property(link):
     try:
         scraper = PropertyScraper(link) 
@@ -26,31 +41,9 @@ def scrape_property(link):
     except Exception as e:
         print(f"Error scraping {link}: {e}")
         return None
-    
-# links = update_links()
-# DataManager.links_export(links)
-# OR 
-links = DataManager.links_import()
-links = links[:100]
-data_list = []
-with ThreadPoolExecutor(max_workers=10) as executor:
-    # Submit all links as futures
-    futures = [executor.submit(scrape_property, link) for link in links]
 
-    # Process results as soon as each future completes
-    for future in tqdm(as_completed(futures), total=len(futures)):
-        data = future.result()
-        if data is not None:
-            data_list.append(data)
-for data in data_list:
-    print(data)
-def update_dataset():
-    links = DataManager.links_import()
-    data_list = []
-    for link in links:
-        scraper = PropertyScraper(link)
-        data_list.append(scraper.scrape())
-    DataManager.data_csv_export(data_list)
+
+update_dataset()
 
 data = DataManager.data_csv_import()
 print(data)

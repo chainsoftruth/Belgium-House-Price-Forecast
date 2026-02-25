@@ -19,7 +19,7 @@ class DataManager():
         return lines
 
     @staticmethod
-    def data_csv_export(data: list[dict[srt:str]]):
+    def data_csv_export(data):
         """Exporting data list (list of dicts) into ./data/dataset.csv"""
         file_name = "./data/dataset.csv"
         columns = list(data[0].keys())
