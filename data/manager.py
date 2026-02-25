@@ -1,3 +1,5 @@
+import pandas as pd
+
 class DataManager():
 
     @staticmethod
@@ -14,9 +16,25 @@ class DataManager():
             lines = [line.strip() for line in file if line.strip()]
         return lines
 
-    def data_csv_export(data: list[dict[str: str]]):
+    @staticmethod
+    def data_csv_export(data):
         """Exporting data list (list of dicts) into ./data/dataset.csv"""
         pass
+    
+    @staticmethod
+    def data_csv_import() -> pd.DataFrame:
+        dataset = pd.read_csv("./data/dataset.csv", na_values = ["None", ""])
+        strings = ["Locality", "Type of property", "Subtype of property", 
+        "Type of sale", "State of the building"]
+        numbers = ["Price", "Number of rooms", "Living Area", "Terrace Area",
+        "Garden Area", "Surface of the land", "Number of facades"]
+        booleans = ["Furnished", "Terrace", "Garden", "Swimming pool"]
+        dataset[strings] = dataset[strings].astype(str)
+        dataset[numbers] = dataset[numbers].astype(int)
+        dataset[booleans] = dataset[booleans].astype(bool)
 
-    def data_csv_import():
-        pass
+        dataset = dataset[dataset["Price"] > 0]
+        print("Import: OK")
+        print(f"Rows: {len(dataset)}")
+        return dataset
+        
