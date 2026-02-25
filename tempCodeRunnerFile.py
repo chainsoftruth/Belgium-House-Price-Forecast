@@ -1,1 +1,59 @@
-links = links[:10]
+from data.manager import DataManager
+from domain.links import Links
+from domain.scraper import PropertyScraper
+from domain.data_cleaner import DataCleaner as dc
+from tqdm import tqdm
+from concurrent.futures import ThreadPoolExecutor, as_completed
+import requests
+import pandas as pd
+
+
+def update_ranges():
+    pass
+
+def update_links() -> list[str]:
+    links = Links()
+    print("SCRAPING...")
+    links_list = links.scrape()
+    print("SCRAPED: OK")
+    return links_list
+
+links = update_links()
+
+DataManager.links_export(links)
+
+def update_dataset():
+    links = DataManager.links_import()
+    # links = links[:400]
+    # links = links[14000:] 
+    data_list = []
+    with ThreadPoolExecutor(max_workers=10) as executor:
+        # Submit all links as futures
+        futures = [executor.submit(scrape_property, link) for link in links]
+
+        # Process results as soon as each future completes
+        for future in tqdm(as_completed(futures), total=len(futures)):
+            data = future.result()
+            if data is not None:
+                data_list.append(data)
+    DataManager.data_csv_export(data_list)
+
+def scrape_property(link):
+    try:
+        scraper = PropertyScraper(link) 
+        return scraper.scrape()
+    except requests.exceptions.HTTPError as e:
+        status = e.response.status_code
+        if status in (404, 410):
+            print(f"Skipping {status} page: {link}")
+            return None  # skip permanently
+        else:
+            raise  # re-raise other HTTP errors
+    except Exception as e:
+        print(f"Error scraping {link}: {e}")
+        return None
+
+# update_dataset()
+data = DataManager.data_csv_import()
+print(data)
+dc.check(data)

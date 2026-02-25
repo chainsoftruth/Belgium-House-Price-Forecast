@@ -7,12 +7,20 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 import requests
 import pandas as pd
 
-def update_links() -> list[str]:
-    links = Links()
-    print("SCRAPING...")
-    links_list = links.scrape()
-    print("SCRAPED: OK")
-    return links_list
+
+# def update_ranges():
+#     pass
+
+# def update_links() -> list[str]:
+#     links = Links()
+#     print("SCRAPING...")
+#     links_list = links.scrape()
+#     print("SCRAPED: OK")
+#     return links_list
+
+# links = update_links()
+
+# DataManager.links_export(links)
 
 def update_dataset():
     links = DataManager.links_import()
