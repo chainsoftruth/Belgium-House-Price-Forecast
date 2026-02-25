@@ -16,17 +16,17 @@ class PropertyScraper:
         self.soup = None
         self.data = {
             # Non-boolean fields (default None)
-            'Locality': None,
-            'Type of property': None,
-            'Subtype of property': None,
-            'Price': None,
-            'Number of rooms': None,
-            'Living Area': None,
-            'Terrace Area': None,
-            'Garden Area': None,
-            'Surface of the land': None,
-            'Number of facades': None,
-            'State of the building': None,
+            'Locality': "None",
+            'Type of property': "None",
+            'Subtype of property': "None",
+            'Price': "None",
+            'Number of rooms': "None",
+            'Living Area': "None",
+            'Terrace Area': "None",
+            'Garden Area': "None",
+            'Surface of the land': "None",
+            'Number of facades': "None",
+            'State of the building': "None",
             
             # Boolean fields (default 0 = No)
             'Furnished': 0,
@@ -87,7 +87,7 @@ class PropertyScraper:
         elif subtype in apartment_subtypes:
             self.data['Type of property'] = "apartment"
         else:
-            self.data['Type of property'] = "unknown"
+            self.data['Type of property'] = "None"
 
     def extract_price(self):
         elem = self.soup.select_one('span.detail__header_price_data')

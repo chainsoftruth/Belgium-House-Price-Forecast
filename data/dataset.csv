@@ -1,101 +1,201 @@
 Locality,Type of property,Subtype of property,Price,Number of rooms,Living Area,Terrace Area,Garden Area,Surface of the land,Number of facades,State of the building,Furnished,Terrace,Garden,Swimming pool
-Herstal,unknown,mixed-building,None,2,95,,,,3,Normal,0,1,0,0
-Gosselies,apartment,apartment,15000,2,77,48,,,2,Excellent,0,1,0,0
-Arlon,house,mansion,None,2,209,,,34508,4,Excellent,0,1,1,0
-Mazée,house,residence,1100,3,255,,169,374,3,,0,0,1,0
-Mariembourg,house,residence,620,1,72,,800,895,4,,0,0,1,0
-Marchienne-au-Pont,apartment,duplex,14999,3,97,26,,,2,Normal,0,1,0,0
-Theux,house,bungalow,10000,1,,,,1043,4,,0,0,1,0
-Klerken,house,villa,None,3,203,,,634,4,Excellent,0,1,1,0
-Blankenberge,apartment,apartment,10000,0,10,,,,,,0,0,0,0
 Rumbeke,house,bungalow,1,3,126,12,438,580,4,To be renovated,0,1,1,0
-Liege,apartment,apartment,15000,1,,2,,,2,Normal,0,1,0,0
-Gilly,house,residence,15000,2,129,,,110,2,Fully renovated,0,0,0,0
-Seraing,apartment,loft,15000,1,,,,,2,Normal,0,0,0,0
+Mazée,house,residence,1100,3,255,None,169,374,3,None,0,0,1,0
+Theux,house,bungalow,10000,1,None,None,None,1043,4,None,0,0,1,0
+Klerken,house,villa,None,3,203,None,None,634,4,Excellent,0,1,1,0
+Mariembourg,house,residence,620,1,72,None,800,895,4,None,0,0,1,0
+Blankenberge,apartment,apartment,10000,0,10,None,None,None,None,None,0,0,0,0
+Arlon,house,mansion,None,2,209,None,None,34508,4,Excellent,0,1,1,0
+Gosselies,apartment,apartment,15000,2,77,48,None,None,2,Excellent,0,1,0,0
+Marchienne-au-Pont,apartment,duplex,14999,3,97,26,None,None,2,Normal,0,1,0,0
+Herstal,None,mixed-building,None,2,95,None,None,None,3,Normal,0,1,0,0
+Gilly,house,residence,15000,2,129,None,None,110,2,Fully renovated,0,0,0,0
+Lanaye,house,residence,16500,None,None,None,None,2445,4,None,0,0,0,0
+Seraing,apartment,loft,15000,1,None,None,None,None,2,Normal,0,0,0,0
+Liege,apartment,apartment,15000,1,None,2,None,None,2,Normal,0,1,0,0
+Liege,house,residence,20000,3,None,None,None,None,2,Normal,0,1,0,0
 Saive,house,bungalow,19000,1,88,37,222,434,4,Normal,0,1,1,0
-Engis,house,bungalow,15000,2,75,,,793,4,To renovate,0,1,1,0
+Engis,house,bungalow,15000,2,75,None,None,793,4,To renovate,0,1,1,0
+Hastière-Lavaux,house,bungalow,19000,1,49,15,200,242,None,To be renovated,0,1,1,0
 Wanze,house,residence,20000,3,167,71,3600,3732,4,Normal,0,1,1,0
-Liege,house,residence,20000,3,,,,,2,Normal,0,1,0,0
-Lanaye,house,residence,16500,,,,,2445,4,,0,0,0,0
-Hermée,house,residence,20000,,,,,3130,4,,0,0,0,0
-Hastière-Lavaux,house,bungalow,19000,1,49,15,200,242,,To be renovated,0,1,1,0
-Sint-Jans-Molenbeek,apartment,apartment,25000,1,60,14,,,2,Excellent,0,1,0,0
-Durbuy,house,residence,None,0,30,,,190,,,0,1,0,0
-Saint-Hubert,house,residence,None,1,45,,,23,,To be renovated,0,0,1,0
-Dour,house,residence,25000,1,115,,,277,3,,0,1,1,0
-Forges,house,bungalow,20000,1,40,,,192,4,To renovate,1,1,1,0
-Vielsalm,apartment,duplex,25000,3,115,8,,,2,Excellent,0,1,0,0
-Zulte,house,residence,25000,3,,,,280,,To be renovated,0,0,0,0
-Vorst,apartment,apartment,25000,1,72,2,,,2,Excellent,0,1,0,0
-Wanze,house,bungalow,25000,2,100,,,944,4,Normal,0,1,1,0
-Eupen,house,residence,25000,2,116,,355,,,,0,0,1,0
+Saint-Hubert,house,residence,None,1,45,None,None,23,None,To be renovated,0,0,1,0
+Hermée,house,residence,20000,None,None,None,None,3130,4,None,0,0,0,0
+Forges,house,bungalow,20000,1,40,None,None,192,4,To renovate,1,1,1,0
+Sint-Jans-Molenbeek,apartment,apartment,25000,1,60,14,None,None,2,Excellent,0,1,0,0
+Zulte,house,residence,25000,3,None,None,None,280,None,To be renovated,0,0,0,0
+Durbuy,house,residence,None,0,30,None,None,190,None,None,0,1,0,0
+Dour,house,residence,25000,1,115,None,None,277,3,None,0,1,1,0
+Wanze,house,bungalow,25000,2,100,None,None,944,4,Normal,0,1,1,0
+Vorst,apartment,apartment,25000,1,72,2,None,None,2,Excellent,0,1,0,0
+Vielsalm,apartment,duplex,25000,3,115,8,None,None,2,Excellent,0,1,0,0
+Saint-Hubert,house,residence,25000,1,40,None,None,143,None,To be renovated,0,0,1,0
+Eupen,house,residence,25000,2,116,None,355,None,None,None,0,0,1,0
+Tongrinne,house,residence,25000,4,182,None,None,589,3,Normal,0,1,1,0
 Couthuin,house,residence,25000,3,215,40,900,1376,4,Normal,0,1,1,0
-Tongrinne,house,residence,25000,4,182,,,589,3,Normal,0,1,1,0
-Glain,apartment,apartment,27500,2,78,10,,,1,,0,1,0,0
-Malmedy,apartment,studio,30000,1,,,,,2,To be renovated,0,1,0,0
-Aiseau-Presles,house,residence,29000,3,,,,526,,,0,0,0,0
-Winenne,house,residence,29000,2,,,,141,2,To be renovated,0,0,1,0
-Montignies-sur-Sambre,house,residence,30000,1,,,,,,,0,0,1,0
-Glain,apartment,apartment,27500,1,66,2,,,2,,0,1,0,0
-Saint-Hubert,house,residence,25000,1,40,,,143,,To be renovated,0,0,1,0
-Assebroek,apartment,apartment,30000,2,,,,,,Normal,0,1,0,0
-Esneux,house,residence,30000,3,105,,,668,3,Excellent,0,1,1,0
-Jabbeke,house,residence,33000,2,,,,,,,0,1,1,0
-Ramillies,house,residence,30000,4,135,,,1840,3,To be renovated,0,1,1,0
-Baronville,apartment,apartment,32000,2,64,,,,2,To be renovated,0,0,0,0
-Roly,house,chalet,35000,2,70,,,1820,,Normal,0,0,0,0
-Huy,apartment,studio,35000,1,19,,,,3,Normal,0,0,0,0
-Marcinelle,apartment,ground-floor,35000,2,87,,591,,4,Normal,0,1,1,0
-Plainevaux,house,residence,35000,,,,,4700,4,,0,0,0,0
-Forges,house,residence,33000,2,61,,,,4,To be renovated,0,0,0,0
-Andenne,apartment,apartment,35000,3,173,8,,,3,Normal,0,1,0,0
-Vergnies,house,bungalow,35000,2,47,,,350,4,To be renovated,0,0,1,0
-Durbuy,house,chalet,37000,1,43,,200,200,,To renovate,0,0,1,0
-Ougrée,house,residence,37000,2,101,12,200,351,3,,0,1,1,0
-Dour,house,residence,37500,1,,,,1456,4,To be renovated,0,0,0,0
-Yvoir,house,residence,36000,1,52,65,460,,,Normal,0,1,1,0
-Mazée,house,residence,39000,1,81,,,51,2,,0,0,0,0
-Lodelinsart,house,residence,39000,2,88,,,,3,To be renovated,0,0,0,0
-Hastière,house,residence,39000,2,34,17,733,,,To be renovated,0,1,1,0
-Poulseur,house,residence,37500,2,190,,,,3,,0,0,0,0
-Solre-Saint-Géry,house,residence,39999,3,180,,,346,4,New,0,0,1,0
-Barvaux-sur-Ourthe,house,residence,40000,3,100,15,180,265,2,Excellent,0,1,1,0
-PHILIPPEVILLE,house,residence,40000,2,110,,,2508,4,,0,0,1,0
+Winenne,house,residence,29000,2,None,None,None,141,2,To be renovated,0,0,1,0
+Glain,apartment,apartment,27500,2,78,10,None,None,1,None,0,1,0,0
+Montignies-sur-Sambre,house,residence,30000,1,None,None,None,None,None,None,0,0,1,0
+Malmedy,apartment,studio,30000,1,None,None,None,None,2,To be renovated,0,1,0,0
+Glain,apartment,apartment,27500,1,66,2,None,None,2,None,0,1,0,0
+Aiseau-Presles,house,residence,29000,3,None,None,None,526,None,None,0,0,0,0
+Baronville,apartment,apartment,32000,2,64,None,None,None,2,To be renovated,0,0,0,0
+Ramillies,house,residence,30000,4,135,None,None,1840,3,To be renovated,0,1,1,0
+Esneux,house,residence,30000,3,105,None,None,668,3,Excellent,0,1,1,0
+Assebroek,apartment,apartment,30000,2,None,None,None,None,None,Normal,0,1,0,0
+Forges,house,residence,33000,2,61,None,None,None,4,To be renovated,0,0,0,0
+Jabbeke,house,residence,33000,2,None,None,None,None,None,None,0,1,1,0
+Plainevaux,house,residence,35000,None,None,None,None,4700,4,None,0,0,0,0
+Huy,apartment,studio,35000,1,19,None,None,None,3,Normal,0,0,0,0
+Marcinelle,apartment,ground-floor,35000,2,87,None,591,None,4,Normal,0,1,1,0
+Roly,house,chalet,35000,2,70,None,None,1820,None,Normal,0,0,0,0
+Andenne,apartment,apartment,35000,3,173,8,None,None,3,Normal,0,1,0,0
+Vergnies,house,bungalow,35000,2,47,None,None,350,4,To be renovated,0,0,1,0
+Durbuy,house,chalet,37000,1,43,None,200,200,None,To renovate,0,0,1,0
+Ougrée,house,residence,37000,2,101,12,200,351,3,None,0,1,1,0
+Yvoir,house,residence,36000,1,52,65,460,None,None,Normal,0,1,1,0
+Mazée,house,residence,39000,1,81,None,None,51,2,None,0,0,0,0
+Poulseur,house,residence,37500,2,190,None,None,None,3,None,0,0,0,0
+Hastière,house,residence,39000,2,34,17,733,None,None,To be renovated,0,1,1,0
+Solre-Saint-Géry,house,residence,39999,3,180,None,None,346,4,New,0,0,1,0
 Aiseau-Presles,house,residence,40000,2,104,58,122,200,3,Normal,0,1,1,0
-Chimay,house,residence,40000,3,110,,,,2,To be renovated,0,0,0,0
-Lanaye,house,residence,40000,3,141,24,800,1030,3,,0,1,1,0
-Liege,apartment,apartment,40000,3,120,67,,,,,0,1,0,0
-Bressoux,house,residence,40000,4,168,,50,158,2,,0,0,1,0
-Havelange,house,residence,40000,4,248,,,460,4,,0,1,1,0
-Amay,house,residence,40000,2,145,,,145,,To renovate,0,0,1,0
+Dour,house,residence,37500,1,None,None,None,1456,4,To be renovated,0,0,0,0
+Lodelinsart,house,residence,39000,2,88,None,None,None,3,To be renovated,0,0,0,0
+Chimay,house,residence,40000,3,110,None,None,None,2,To be renovated,0,0,0,0
+Bressoux,house,residence,40000,4,168,None,50,158,2,None,0,0,1,0
+Lanaye,house,residence,40000,3,141,24,800,1030,3,None,0,1,1,0
+PHILIPPEVILLE,house,residence,40000,2,110,None,None,2508,4,None,0,0,1,0
+Havelange,house,residence,40000,4,248,None,None,460,4,None,0,1,1,0
+Brûly-de-Pesche,house,chalet,40000,2,30,None,None,2046,None,To be renovated,0,0,0,0
+Barvaux-sur-Ourthe,house,residence,40000,3,100,15,180,265,2,Excellent,0,1,1,0
+Liege,apartment,apartment,40000,3,120,67,None,None,None,None,0,1,0,0
+Amay,house,residence,40000,2,145,None,None,145,None,To renovate,0,0,1,0
+Neuville,house,chalet,40000,1,None,None,None,1320,None,To be renovated,0,0,1,0
 Ecaussinnes,house,bungalow,40000,2,130,1,977,1187,4,Normal,0,1,1,0
-Neuville,house,chalet,40000,1,,,,1320,,To be renovated,0,0,1,0
-Hastière-Lavaux,house,bungalow,42500,1,40,20,,,,,0,1,1,0
-Brûly-de-Pesche,house,chalet,40000,2,30,,,2046,,To be renovated,0,0,0,0
-Châtelet,house,residence,44999,2,55,,,55,2,Normal,0,0,0,0
-Marchienne-au-Pont,house,residence,42000,2,56,,,,,Normal,0,0,0,0
-Oignies-En-Thiérache,house,residence,45000,2,,,,1191,,,0,0,0,0
-La Bouverie,house,residence,40000,3,,,,,3,To be renovated,0,0,1,0
-Ukkel,apartment,apartment,45000,1,67,,100,,2,Normal,0,1,1,0
-Marchienne-au-Pont,house,residence,45000,1,,,,420,3,To be renovated,0,0,1,0
-Maurage,house,residence,45000,2,109,,,335,3,Normal,0,1,1,0
-Hastière,house,cottage,45000,1,27,26,250,,,Normal,1,1,1,0
-Embourg,house,residence,45000,3,131,24,700,852,4,,0,1,1,0
-Quaregnon,house,residence,45000,2,,,50,90,2,To restore,0,1,1,0
-Momignies,house,residence,45000,6,181,,,,4,To be renovated,0,0,1,0
-Trazegnies,house,residence,45000,3,,,,390,3,To demolish,0,0,1,0
-Yvoir,house,residence,45000,2,25,21,209,,,To be renovated,0,1,1,1
-Montegnée,house,residence,45000,2,92,8,50,135,3,,0,1,1,0
-Hornu,apartment,apartment,47000,1,17,,,,2,Normal,0,0,0,0
-Gierle,house,chalet,45000,1,,11,,2607,4,,0,1,1,0
-Oupeye,house,residence,45000,2,99,,340,495,3,,0,0,1,0
-Mazée,house,residence,48000,1,81,,,51,2,,0,0,0,0
-Beausaint,house,residence,48500,1,,,,,4,,0,1,1,0
-Trooz,house,residence,49000,3,110,,300,488,3,To restore,0,0,1,0
+La Bouverie,house,residence,40000,3,None,None,None,None,3,To be renovated,0,0,1,0
+Hastière-Lavaux,house,bungalow,42500,1,40,20,None,None,None,None,0,1,1,0
+Oignies-En-Thiérache,house,residence,45000,2,None,None,None,1191,None,None,0,0,0,0
+Marchienne-au-Pont,house,residence,45000,1,None,None,None,420,3,To be renovated,0,0,1,0
+Marchienne-au-Pont,house,residence,42000,2,56,None,None,None,None,Normal,0,0,0,0
+Châtelet,house,residence,44999,2,55,None,None,55,2,Normal,0,0,0,0
+Ukkel,apartment,apartment,45000,1,67,None,100,None,2,Normal,0,1,1,0
+Embourg,house,residence,45000,3,131,24,700,852,4,None,0,1,1,0
+Hastière,house,cottage,45000,1,27,26,250,None,None,Normal,1,1,1,0
+Maurage,house,residence,45000,2,109,None,None,335,3,Normal,0,1,1,0
+Trazegnies,house,residence,45000,3,None,None,None,390,3,To demolish,0,0,1,0
+Quaregnon,house,residence,45000,2,None,None,50,90,2,To restore,0,1,1,0
+Montegnée,house,residence,45000,2,92,8,50,135,3,None,0,1,1,0
+Gierle,house,chalet,45000,1,None,11,None,2607,4,None,0,1,1,0
+Yvoir,house,residence,45000,2,25,21,209,None,None,To be renovated,0,1,1,1
+Momignies,house,residence,45000,6,181,None,None,None,4,To be renovated,0,0,1,0
+Mazée,house,residence,48000,1,81,None,None,51,2,None,0,0,0,0
+Trooz,house,residence,49000,3,110,None,300,488,3,To restore,0,0,1,0
+None,house,residence,None,None,None,None,None,None,None,None,0,0,0,0
+Charleroi,apartment,studio,49000,1,35,None,None,None,2,Normal,0,0,0,0
+Hornu,apartment,apartment,47000,1,17,None,None,None,2,Normal,0,0,0,0
+Oupeye,house,residence,45000,2,99,None,340,495,3,None,0,0,1,0
+Beausaint,house,residence,48500,1,None,None,None,None,4,None,0,1,1,0
 Colfontaine,house,residence,49000,1,95,8,24,116,2,To be renovated,0,1,1,0
-,house,residence,,,,,,,,,0,0,0,0
-Charleroi,apartment,studio,49000,1,35,,,,2,Normal,0,0,0,0
-Tournai,apartment,studio,49000,1,27,,,,2,To renovate,0,0,0,0
-Noiseux,apartment,apartment,49500,2,40,,484,,4,,0,1,1,0
-Grivegnée,house,residence,49000,2,88,28,,136,4,To be renovated,0,1,0,0
-Bande,house,cottage,49000,2,,,,,,,0,0,0,0
+Grivegnée,house,residence,49000,2,88,28,None,136,4,To be renovated,0,1,0,0
+Bande,house,cottage,49000,2,None,None,None,None,None,None,0,0,0,0
+Noiseux,apartment,apartment,49500,2,40,None,484,None,4,None,0,1,1,0
+Tournai,apartment,studio,49000,1,27,None,None,None,2,To renovate,0,0,0,0
+Sambreville,house,residence,50000,3,159,46,563,688,3,To be renovated,0,1,1,0
+Flémalle,house,residence,49900,2,123,None,None,89,2,Normal,0,1,0,0
+Angre,house,residence,50000,2,96,None,None,840,3,To be renovated,0,0,1,0
+Donstiennes,house,residence,49999,2,131,15,None,120,3,To be renovated,0,1,1,0
+Marcinelle,house,residence,49999,2,117,None,None,69,2,To be renovated,0,0,0,0
+Flobecq,house,residence,50000,2,95,None,None,None,None,None,0,1,1,0
+Élouges,house,residence,50000,3,140,None,None,None,3,To be renovated,0,0,1,0
+Dison,house,residence,50000,None,None,None,None,4215,4,None,0,0,1,0
+Modave,house,residence,50000,2,150,None,None,1824,4,Normal,0,1,1,0
+Kelmis,None,mixed-building,50000,1,60,None,None,None,None,None,0,0,0,0
+Dour,house,residence,50000,3,103,None,None,95,3,To be renovated,0,0,0,0
+Libin,house,residence,50000,3,None,None,None,334,2,To be renovated,0,0,0,0
+Gerpinnes,house,residence,50000,1,77,None,None,1352,4,Normal,0,1,1,0
+Frameries,house,residence,50000,1,50,15,None,None,2,To be renovated,0,1,0,0
+Momignies,house,residence,50000,3,138,13,None,None,2,None,0,1,0,0
+Ransart,house,residence,50000,1,None,None,None,None,None,None,0,0,0,0
+Roly,house,residence,50000,2,None,None,None,828,None,None,0,1,1,0
+La Louvière,house,residence,50000,1,38,None,None,39,2,To renovate,0,0,0,0
+Durbuy,house,bungalow,50000,2,54,None,None,None,4,None,1,1,0,0
+Marcinelle,house,residence,50000,2,81,15,None,None,None,None,0,1,0,0
+Wiers,house,residence,50000,2,90,None,366,430,2,To be renovated,0,0,1,0
+Marche-en-Famenne,house,residence,50000,3,120,None,150,501,4,Normal,0,0,1,0
+Zutendaal,house,residence,53500,3,42,None,None,217,None,None,0,0,0,0
+Dour,house,residence,55000,2,114,None,None,195,3,To be renovated,0,1,0,0
+Quaregnon,house,residence,54999,1,71,20,None,110,2,To renovate,0,1,0,0
+Agimont,house,residence,50000,1,80,None,None,452,4,To be renovated,0,0,0,0
+Hastière,house,bungalow,54000,2,63,24,240,804,4,Normal,0,1,1,0
+Montegnée,apartment,apartment,53500,2,105,30,None,None,2,None,0,1,0,0
+Amay,house,residence,55000,1,50,None,45,157,2,To be renovated,0,0,1,0
+Élouges,house,residence,55000,3,91,None,None,None,2,To be renovated,0,1,1,0
+Vivegnis,house,residence,55000,4,None,None,None,None,3,Normal,0,1,1,0
+Erquelinnes,house,residence,55000,5,117,None,None,318,3,To be renovated,0,1,1,0
+Hastière-par-delà,house,bungalow,55000,2,49,None,None,306,4,New,0,0,0,0
+Pâturages,house,residence,55000,3,132,None,47,159,2,To be renovated,0,0,1,0
+Vergnies,house,residence,55000,3,69,None,None,237,4,None,0,1,1,0
+Momignies,house,residence,55000,3,78,None,None,161,2,To be renovated,0,0,1,0
+Amonines,house,chalet,55000,1,22,30,None,429,4,To be renovated,0,1,1,0
+Kelmis,None,mixed-building,55000,None,None,None,None,None,None,None,0,0,0,0
+Dour,house,residence,55000,2,80,15,None,110,3,To be renovated,0,1,1,0
+Burg-Reuland,house,residence,55000,2,126,None,None,385,3,To be renovated,0,0,0,0
+Membre,apartment,apartment,55000,1,32,None,None,None,None,Normal,0,0,0,0
+Durbuy,house,chalet,55000,2,60,20,None,None,4,Normal,1,1,0,1
+Zutendaal,house,residence,57500,3,42,None,None,212,None,None,0,0,0,0
+Sivry,house,residence,55000,3,111,None,None,None,3,To be renovated,0,0,0,0
+Hastière-Lavaux,house,chalet,56000,2,40,None,None,320,None,None,0,1,1,0
+Ougrée,apartment,studio,56500,1,32,None,None,None,None,To be renovated,0,0,0,0
+Liege,apartment,apartment,59000,1,30,None,None,None,None,Normal,0,0,0,0
+Frameries,house,residence,59000,1,40,None,12,450,2,To be renovated,0,0,1,0
+Momignies,house,residence,55000,5,160,None,None,None,4,To be renovated,0,0,1,0
+Rochefort,apartment,apartment,None,1,None,None,None,None,None,None,0,0,0,0
+Hornu,house,residence,59000,1,110,80,None,None,2,To be renovated,0,1,1,0
+Trooz,house,residence,59000,3,142,None,None,373,3,To be renovated,0,1,1,0
+Hastière-Lavaux,house,residence,59000,2,42,None,None,None,4,Normal,1,1,0,0
+Courcelles,house,residence,59000,1,60,None,350,406,2,None,0,0,1,0
+De Panne,apartment,apartment,59000,1,19,None,None,None,4,None,0,1,0,0
+Malmedy,apartment,studio,59000,1,32,None,None,None,2,Normal,1,1,0,0
+Montignies-sur-Sambre,house,residence,59000,2,102,17,235,340,2,To be renovated,0,1,1,0
+Pecq,house,residence,59000,1,56,None,65,239,3,To restore,0,1,1,0
+Seraing,None,mixed-building,59000,3,103,None,150,220,2,To be renovated,0,0,1,0
+Montignies-sur-Sambre,house,residence,59000,2,86,None,None,None,2,To be renovated,0,1,1,0
+Blaimont,house,chalet,59000,2,42,16,280,280,4,Excellent,1,1,1,0
+Rochefort,apartment,apartment,None,1,None,None,None,None,None,None,0,0,0,0
+Blaimont,house,chalet,59000,2,40,None,None,632,None,None,0,0,1,0
+Chapelle-lez-Herlaimont,house,residence,60000,3,134,None,None,605,2,To be renovated,0,0,1,0
+Colfontaine,house,residence,59500,2,120,None,None,None,3,To restore,0,1,1,0
+Couillet,house,residence,59999,2,105,None,None,102,2,To be renovated,0,0,0,0
+Fourbechies,house,chalet,59000,2,68,None,None,353,4,None,0,1,1,0
+Ougrée,apartment,studio,59000,1,26,None,None,None,None,To renovate,0,0,0,0
+Sambreville,house,residence,60000,3,205,None,None,280,3,Normal,0,0,1,0
+Durbuy,house,bungalow,59500,2,74,None,None,None,4,None,1,1,0,0
+Marchienne-au-Pont,house,residence,59999,3,None,None,None,370,2,Normal,0,1,0,0
+Laplaigne,house,residence,60000,2,123,None,None,None,4,None,0,0,1,0
+Monceau-sur-Sambre,house,residence,60000,2,95,4,None,46,2,None,0,1,0,0
+Colfontaine,house,residence,60000,2,110,None,None,190,2,To be renovated,0,0,1,0
+Mons-Lez-Liège,house,residence,60000,1,75,None,None,65,None,To be renovated,0,0,0,0
+Celles,house,residence,60000,1,28,None,None,None,3,Normal,0,0,1,0
+Chimay,house,residence,60000,2,None,None,None,None,None,None,0,0,0,0
+Beauraing,house,residence,60000,2,80,10,560,1061,4,To be renovated,0,1,1,0
+La Bouverie,house,residence,60000,2,135,8,242,341,2,To be renovated,0,1,1,0
+Dison,apartment,loft,60000,None,270,None,None,None,2,To be renovated,0,0,0,0
+Dour,house,residence,60000,2,94,12,34,125,2,To be renovated,0,1,1,0
+Blaimont,house,cottage,60000,2,45,20,295,None,None,Normal,1,1,1,0
+Chastre,house,residence,60000,2,109,24,397,457,3,To renovate,0,1,1,0
+Blaimont,house,chalet,60000,2,40,None,None,420,4,None,1,1,0,0
+Durbuy,apartment,apartment,60000,1,None,None,None,None,4,None,0,1,0,0
+Bon-Secours,apartment,apartment,61000,1,50,None,None,None,None,To renovate,0,0,0,0
+Péruwelz,house,residence,60000,2,80,None,None,310,2,To be renovated,0,0,1,0
+None,house,residence,None,None,None,None,None,None,None,None,0,0,0,0
+Aalter,apartment,apartment,60000,2,92,4,None,None,2,Excellent,0,1,0,0
+Blaimont,house,chalet,64000,2,40,None,None,300,None,None,1,1,1,1
+Blaimont,house,chalet,62500,2,40,None,None,555,4,None,1,1,0,0
+Beauraing,apartment,apartment,63000,1,61,None,None,None,2,To be renovated,0,0,1,0
+Zutendaal,house,residence,62500,3,42,None,None,232,None,None,0,0,0,0
+Amonines,house,chalet,63500,1,40,None,None,233,4,To be renovated,1,0,1,1
+Courcelles,house,residence,64999,2,131,40,764,764,2,To be renovated,0,1,1,0
+Monceau-sur-Sambre,apartment,duplex,64999,3,83,None,None,None,3,Normal,0,0,0,0
+Seraing,house,residence,64000,2,93,None,None,210,2,To renovate,0,0,0,0
+Dampremy,apartment,studio,64900,1,37,61,None,None,4,To be renovated,0,1,0,0
+Châtelineau,house,residence,64999,2,126,16,120,183,2,Normal,0,1,1,0
+Colfontaine,house,residence,65000,2,95,None,73,130,2,To be renovated,0,1,1,0

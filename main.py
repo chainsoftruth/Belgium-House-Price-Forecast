@@ -16,7 +16,7 @@ def update_links() -> list[str]:
 
 def update_dataset():
     links = DataManager.links_import()
-    links = links[:100]
+    links = links[:200]
     data_list = []
     with ThreadPoolExecutor(max_workers=10) as executor:
         # Submit all links as futures
