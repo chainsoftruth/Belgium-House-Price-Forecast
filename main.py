@@ -17,6 +17,7 @@ def update_links() -> list[str]:
 def update_dataset():
     links = DataManager.links_import()
     # links = links[:400]
+    # links = links[14000:] 
     data_list = []
     with ThreadPoolExecutor(max_workers=10) as executor:
         # Submit all links as futures
@@ -34,8 +35,9 @@ def scrape_property(link):
         scraper = PropertyScraper(link) 
         return scraper.scrape()
     except requests.exceptions.HTTPError as e:
-        if e.response.status_code == 410:
-            print(f"Property removed (410): {link}")
+        status = e.response.status_code
+        if status in (404, 410):
+            print(f"Skipping {status} page: {link}")
             return None  # skip permanently
         else:
             raise  # re-raise other HTTP errors
