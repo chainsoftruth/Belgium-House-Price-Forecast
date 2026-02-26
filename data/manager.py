@@ -34,6 +34,19 @@ class DataManager():
         print("CSV updated.")
 
     @staticmethod
+    def clean_data_csv_export(data):
+        """Export cleaned pandas DataFrame into ./data/dataset_trimmed.csv"""
+
+        if data is None or data.empty:
+            print("No data to export.")
+            return
+
+        file_name = "./data/dataset_trimmed.csv"
+        data.to_csv(file_name, index=False)
+
+        print("Trimmed CSV saved.")
+
+    @staticmethod
     def data_csv_import() -> pd.DataFrame:
         """
         - Importing data from "./data/dataset.csv".

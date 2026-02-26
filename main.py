@@ -5,7 +5,6 @@ from domain.data_cleaner import DataCleaner as dc
 from tqdm import tqdm
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import requests
-import pandas as pd
 
 def update_links() -> list[str]:
     links = Links()
@@ -42,11 +41,15 @@ def scrape_property(link):
     except Exception as e:
         print(f"Error scraping {link}: {e}")
         return None
+    
+def trim_data():
+    data = DataManager.data_csv_import()
+    trimmed_data = dc.trim_data_edges(data)
+    DataManager.clean_data_csv_export(trimmed_data)
+    print(trimmed_data)
+    dc.check(trimmed_data)
 
 # Uncomment to update data:
 # update_links()
 # update_dataset()
-
-data = DataManager.data_csv_import()
-print(data)
-dc.check(data)
+# trim_data()
