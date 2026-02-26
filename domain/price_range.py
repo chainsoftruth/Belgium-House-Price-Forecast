@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import re
 
 class PriceRanges():
-
+    
     @staticmethod
     def check_range(minprice: int, maxprice: int, session: requests.Session) -> int:
         """Returns amount of results"""
@@ -14,7 +14,6 @@ class PriceRanges():
             f"&minprice={minprice}"
             f"&maxprice={maxprice}"
             "&noindex=1"
-            "&islifeannuity=no"
         )
         headers = {
             "User-Agent": ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/"

@@ -10,12 +10,14 @@ class DataManager():
         with open("./data/links.txt", "w") as file:
             for link in links:
                 file.write(f"{link}\n")
+        print("links.txt updated.")
     
     @staticmethod
     def links_import() -> list[str]:
         """Importing links from .txt"""
         with open("./data/links.txt", "r") as file:
             lines = [line.strip() for line in file if line.strip()]
+        print("Links import: OK")
         return lines
 
     @staticmethod

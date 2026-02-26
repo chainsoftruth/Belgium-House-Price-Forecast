@@ -12,17 +12,15 @@ def update_links() -> list[str]:
     print("SCRAPING...")
     links_list = links.scrape()
     print("SCRAPED: OK")
+    DataManager.links_export(links_list)
     return links_list
 
 def update_dataset():
     links = DataManager.links_import()
-    # links = links[:400]
-    # links = links[14000:] 
     data_list = []
     with ThreadPoolExecutor(max_workers=10) as executor:
         # Submit all links as futures
         futures = [executor.submit(scrape_property, link) for link in links]
-
         # Process results as soon as each future completes
         for future in tqdm(as_completed(futures), total=len(futures)):
             data = future.result()
@@ -38,16 +36,17 @@ def scrape_property(link):
         status = e.response.status_code
         if status in (404, 410):
             print(f"Skipping {status} page: {link}")
-            return None  # skip permanently
+            return None
         else:
-            raise  # re-raise other HTTP errors
+            raise
     except Exception as e:
         print(f"Error scraping {link}: {e}")
         return None
 
-links = update_links()
-DataManager.links_export(links)
-#update_dataset()
+# Uncomment to update data:
+# update_links()
+# update_dataset()
+
 data = DataManager.data_csv_import()
-print(data.head(10))
+print(data)
 dc.check(data)

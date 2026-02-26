@@ -7,12 +7,14 @@ import time
 import random
 
 class PropertyScraper:
+    
     def __init__(self, url):
         self.url = url
         self.session = requests.Session()
         self.session.headers.update({
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
-        })
+            'User-Agent': ('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb'
+            'Kit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+        )})
         self.soup = None
         self.data = {
             # Non-boolean fields (default None)
@@ -28,7 +30,7 @@ class PropertyScraper:
             'Number of facades': None,
             'State of the building': None,
             
-            # Boolean fields (default 0 = No)
+            # Boolean fields (default 0 == False)
             'Furnished': 0,
             'Terrace': 0,
             'Garden': 0,
@@ -40,7 +42,8 @@ class PropertyScraper:
         time.sleep(delay)
         response = self.session.get(self.url)
         if "/detail/" not in response.url:
-            print(f"Redirected to search page: {response.url} - skipping {self.url}")
+            print(f"\nRedirected to search page:"
+            f" {response.url} - skipping {self.url}")
             return None
         response.raise_for_status()
         self.soup = BeautifulSoup(response.text, 'html.parser')
@@ -59,20 +62,18 @@ class PropertyScraper:
         self.extract_swimming_pool()
         return self.data 
 
-
     def extract_locality(self):
-        elem = self.soup.select_one('span.detail__header_title_main span.d-none.d-lg-inline')
+        elem = self.soup.select_one(
+            'span.detail__header_title_main span.d-none.d-lg-inline')
         if elem:
             raw_text = elem.get_text(strip=True)
             cleaned_text = re.sub(r'^-\s+', '', raw_text)
             self.data['Locality'] = cleaned_text
 
-
     def extract_property_subtype(self):
         match = re.search(r'/detail/([^/]+)/', self.url)
         if match:
                 self.data['Subtype of property'] = match.group(1)
-
 
     def extract_property_type(self, subtype):
         house_subtypes = [
@@ -102,7 +103,6 @@ class PropertyScraper:
             else:
                 self.data['Price'] = "None"
 
-
     def extract_number_of_rooms(self):
         rows = self.soup.select("div.data-row-wrapper > div")
 
@@ -113,7 +113,6 @@ class PropertyScraper:
                 raw_text = value.get_text(strip=True)
                 clean_text = re.sub(r'[^\d]', '', raw_text)
                 self.data["Number of rooms"] = int(clean_text) if clean_text else None
-
 
     def extract_living_area(self):
         rows = self.soup.select("div.data-row-wrapper > div")
@@ -126,7 +125,6 @@ class PropertyScraper:
                 clean_text = re.sub(r'[^\d]', '', raw_text)
                 self.data["Living Area"] = int(clean_text) if clean_text else None
 
-
     def extract_surface_of_the_land(self):
         rows = self.soup.select("div.data-row-wrapper > div")
 
@@ -138,7 +136,6 @@ class PropertyScraper:
                 clean_text = re.sub(r'[^\d]', '', raw_text)
                 self.data["Surface of the land"] = int(clean_text) if clean_text else None
 
-
     def extract_number_of_facades(self):
         rows = self.soup.select("div.data-row-wrapper > div")
 
@@ -149,7 +146,6 @@ class PropertyScraper:
                 raw_text = value.get_text(strip=True)
                 clean_text = re.sub(r'[^\d]', '', raw_text)
                 self.data["Number of facades"] = int(clean_text) if clean_text else None
-
 
     def extract_terrace(self):
         rows = self.soup.select("div.data-row-wrapper > div")
@@ -167,7 +163,6 @@ class PropertyScraper:
                 raw_text2 = value2.get_text(strip=True)
                 clean_text = re.sub(r'[^\d]', '', raw_text2)
                 self.data["Terrace Area"] = int(clean_text) if clean_text else None
-                
 
     def extract_garden(self):
         rows = self.soup.select("div.data-row-wrapper > div")
@@ -186,7 +181,6 @@ class PropertyScraper:
                 clean_text = re.sub(r'[^\d]', '', raw_text2)
                 self.data["Garden Area"] = int(clean_text) if clean_text else None
 
-
     def extract_state_of_the_building(self):
         rows = self.soup.select("div.data-row-wrapper > div")
 
@@ -196,7 +190,6 @@ class PropertyScraper:
                 value = row.select_one("p")
                 raw_text = value.get_text(strip=True)
                 self.data["State of the building"] = raw_text if raw_text else None
-
 
     def extract_furnished(self):
         rows = self.soup.select("div.data-row-wrapper > div")
@@ -208,7 +201,6 @@ class PropertyScraper:
                     raw_text = value.get_text(strip=True)
                     if raw_text.lower() == "yes":
                         self.data["Furnished"] = 1
-
 
     def extract_swimming_pool(self):
         rows = self.soup.select("div.data-row-wrapper > div")
