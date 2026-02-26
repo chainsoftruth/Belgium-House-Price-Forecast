@@ -33,9 +33,9 @@ class Links():
         price_range = {"min": 1, "max": self._absolute_max}
         results_left = pr.check_range(
             price_range["min"], price_range["max"], self._session)
-        print(results_left)
+        print("Results left: ", results_left, sep = '')
         while results_left > 0:
-            print("all goes good")
+            print("All goes good here...")
             pages = results_left // 20 
             if results_left % 20 > 0:
                 pages += 1
@@ -47,7 +47,6 @@ class Links():
                 pages
             )
             self._links.extend(links_list)
-            print(f"Scraped {len(links_list)} links.")
             index = -1
             while True:
                 if self.get_price(self._links[index]) == "None" \
@@ -60,7 +59,7 @@ class Links():
                 break
             results_left = pr.check_range(
                 price_range["min"], price_range["max"], self._session)
-            print("------results_left ", results_left)
+            print("Results left: ", results_left, sep = '')
             print(price_range["min"], price_range["max"])
         self.cleaner()
         return self._links
