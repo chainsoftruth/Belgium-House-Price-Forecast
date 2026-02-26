@@ -52,5 +52,6 @@ class DataManager():
         dataset[numbers] = dataset[numbers].astype("Int64")
         dataset[booleans] = dataset[booleans].astype("boolean")
         dataset = dataset[dataset["Price"] > 0]
+        dataset = dataset.sort_values(by = "Price")
         print("Import: OK")
         return dataset
