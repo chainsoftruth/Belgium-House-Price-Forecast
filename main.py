@@ -1,10 +1,11 @@
 from data.manager import DataManager
 from domain.links import Links
 from domain.scraper import PropertyScraper
-from domain.data_cleaner import DataCleaner as dc
+from domain.data_cleaner import DataCleaner
 from tqdm import tqdm
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import requests
+import pandas as pd
 
 def update_links() -> list[str]:
     links = Links()
@@ -13,19 +14,6 @@ def update_links() -> list[str]:
     print("SCRAPED: OK")
     DataManager.links_export(links_list)
     return links_list
-
-def update_dataset():
-    links = DataManager.links_import()
-    data_list = []
-    with ThreadPoolExecutor(max_workers=10) as executor:
-        # Submit all links as futures
-        futures = [executor.submit(scrape_property, link) for link in links]
-        # Process results as soon as each future completes
-        for future in tqdm(as_completed(futures), total=len(futures)):
-            data = future.result()
-            if data is not None:
-                data_list.append(data)
-    DataManager.data_csv_export(data_list)
 
 def scrape_property(link):
     try:
@@ -41,15 +29,22 @@ def scrape_property(link):
     except Exception as e:
         print(f"Error scraping {link}: {e}")
         return None
-    
-def trim_data():
-    data = DataManager.data_csv_import()
-    trimmed_data = dc.trim_data_edges(data)
-    DataManager.clean_data_csv_export(trimmed_data)
-    print(trimmed_data)
-    dc.check(trimmed_data)
 
-# Uncomment to update data:
-# update_links()
-# update_dataset()
-trim_data()
+def update_dataset():
+    links = DataManager.links_import()
+    data_list = []
+    with ThreadPoolExecutor(max_workers=10) as executor:
+        futures = [executor.submit(scrape_property, link) for link in links]
+        for future in tqdm(as_completed(futures), total=len(futures)):
+            data = future.result()
+            if data is not None:
+                data_list.append(data)
+    DataManager.data_csv_export(data_list, "raw_dataset")
+    
+def clear_data() -> pd.DataFrame:
+    data = DataManager.raw_data_csv_import()
+    clean_data = DataCleaner.optimize(data)
+    DataManager.dataframe_csv_export(clean_data, "clean_dataset")
+    DataCleaner.check(clean_data)
+
+clear_data()

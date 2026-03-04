@@ -21,9 +21,9 @@ class DataManager():
         return lines
 
     @staticmethod
-    def data_csv_export(data):
+    def data_csv_export(data: list[dict[str: any]], filename: str):
         """Exporting data list (list of dicts) into ./data/dataset.csv"""
-        file_name = "./data/dataset.csv"
+        file_name = f"./data/{filename}.csv"
         columns = list(data[0].keys())
         file = open(file_name, "w", newline="", encoding="utf-8")
         writer = csv.DictWriter(file, columns)
@@ -34,28 +34,25 @@ class DataManager():
         print("CSV updated.")
 
     @staticmethod
-    def clean_data_csv_export(data):
-        """Export cleaned pandas DataFrame into ./data/dataset_trimmed.csv"""
-
+    def dataframe_csv_export(data: pd.DataFrame, filename: str):
+        """Export cleaned pandas DataFrame into ./data/{filename}.csv"""
         if data is None or data.empty:
             print("No data to export.")
             return
-
-        file_name = "./data/dataset_trimmed.csv"
+        file_name = f"./data/{filename}.csv"
         data.to_csv(file_name, index=False)
-
-        print("Trimmed CSV saved.")
+        print("DataFrame export: OK")
 
     @staticmethod
-    def data_csv_import() -> pd.DataFrame:
+    def raw_data_csv_import() -> pd.DataFrame:
         """
-        - Importing data from "./data/dataset.csv".
+        - Importing data from "./data/raw_dataset.csv".
         - Converting all values to its' types.
         - Clearnig set from priceless records.
 
         Return: pandas.DataFrame - data from file.
         """
-        dataset = pd.read_csv("./data/dataset.csv", na_values = ["None", "", "unknown"])
+        dataset = pd.read_csv("./data/raw_dataset.csv", na_values = ["None", "", "unknown"])
         strings = ["Locality", "Type of property", "Subtype of property", 
         "State of the building"]
         numbers = ["Price", "Number of rooms", "Living Area", "Terrace Area",
@@ -68,3 +65,7 @@ class DataManager():
         dataset = dataset.sort_values(by = "Price")
         print("Import: OK")
         return dataset
+    
+    def csv_import(filename: str) -> pd.DataFrame:
+        data = pd.read_csv(f"./data/{filename}.csv")
+        return data
