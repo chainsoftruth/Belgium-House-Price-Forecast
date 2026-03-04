@@ -12,7 +12,7 @@ class DataCleaner():
     
     @staticmethod
     def optimize(data: pd.DataFrame) -> pd.DataFrame:
-        data = DataCleaner.trim_edges(data, 0.05)
+        data = DataCleaner.trim_edges(data, 0.02, 0.005)
         data = data.replace([0, "To demolish", "Under construction", "To restore"], np.nan)
         condition = data["Type of property"] == "apartment"
         sublist = ["Surface of the land"]
@@ -46,7 +46,7 @@ class DataCleaner():
         return data
 
     @staticmethod
-    def trim_edges(data: pd.DataFrame, persents: float) -> pd.DataFrame:
+    def trim_edges(data: pd.DataFrame, start_prs: float, end_prs: float) -> pd.DataFrame:
         """
         Removes 5% of the data from the beginning and 5% from the end.
         Returns the trimmed list.
@@ -57,13 +57,14 @@ class DataCleaner():
             return data
 
         total_rows = len(data)
-        trim_count = math.floor(total_rows * persents)
+        trim_start = math.floor(total_rows * start_prs)
+        trim_end = math.floor(total_rows * end_prs)
 
-        if total_rows <= trim_count * 2:
-            print("Dataset too small to trim 5% from both ends.")
+        if total_rows <= trim_start + trim_end:
+            print("Dataset too small to trim values from both ends.")
             return data
 
-        trimmed_data = data.iloc[trim_count: total_rows - trim_count]
+        trimmed_data = data.iloc[trim_start : total_rows - trim_end]
 
-        print(f"Trimmed {trim_count} rows from start and end.")
+        print(f"Trimmed {trim_start + trim_end} rows.")
         return trimmed_data
