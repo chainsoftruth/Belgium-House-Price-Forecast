@@ -35,7 +35,7 @@ class DataCleaner():
             "Swimming pool": "pool"
         })
         data = data.replace({
-            "To renovate": 1,
+            "To renovate": 2,
             "To be renovated": 2,
             "Normal": 4,
             "Fully renovated": 6,
