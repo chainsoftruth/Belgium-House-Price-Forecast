@@ -15,7 +15,7 @@ def update_links() -> list[str]:
     DataManager.links_export(links_list)
     return links_list
 
-def scrape_property(link):
+def _scrape_property(link):
     try:
         scraper = PropertyScraper(link) 
         return scraper.scrape()
@@ -32,9 +32,10 @@ def scrape_property(link):
 
 def update_dataset():
     links = DataManager.links_import()
+    links = links[:500]
     data_list = []
     with ThreadPoolExecutor(max_workers=10) as executor:
-        futures = [executor.submit(scrape_property, link) for link in links]
+        futures = [executor.submit(_scrape_property, link) for link in links]
         for future in tqdm(as_completed(futures), total=len(futures)):
             data = future.result()
             if data is not None:
@@ -46,5 +47,3 @@ def clear_data() -> pd.DataFrame:
     clean_data = DataCleaner.optimize(data)
     DataManager.dataframe_csv_export(clean_data, "clean_dataset")
     DataCleaner.check(clean_data)
-
-clear_data()

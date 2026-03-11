@@ -18,7 +18,7 @@ class PropertyScraper:
         self.soup = None
         self.data = {
             # Non-boolean fields (default None)
-            'Locality': None,
+            'Post code': None,
             'Type of property': None,
             'Subtype of property': None,
             'Price': None,
@@ -38,7 +38,7 @@ class PropertyScraper:
         }
 
     def scrape(self):
-        delay = random.uniform(1, 2.5)
+        delay = random.uniform(0.5, 1)
         time.sleep(delay)
         response = self.session.get(self.url)
         if "/detail/" not in response.url:
@@ -47,7 +47,7 @@ class PropertyScraper:
             return None
         response.raise_for_status()
         self.soup = BeautifulSoup(response.text, 'html.parser')
-        self.extract_locality()
+        self.extract_postcode()
         self.extract_property_subtype()
         self.extract_property_type(self.data['Subtype of property'])
         self.extract_price()
@@ -62,13 +62,8 @@ class PropertyScraper:
         self.extract_swimming_pool()
         return self.data 
 
-    def extract_locality(self):
-        elem = self.soup.select_one(
-            'span.detail__header_title_main span.d-none.d-lg-inline')
-        if elem:
-            raw_text = elem.get_text(strip=True)
-            cleaned_text = re.sub(r'^-\s+', '', raw_text)
-            self.data['Locality'] = cleaned_text
+    def extract_postcode(self):
+        self.data['Post code'] = self.url.split("/")[7]
 
     def extract_property_subtype(self):
         match = re.search(r'/detail/([^/]+)/', self.url)

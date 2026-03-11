@@ -13,7 +13,6 @@ class DataCleaner():
     
     @staticmethod
     def optimize(data: pd.DataFrame) -> pd.DataFrame:
-        data = DataCleaner.trim_edges(data, 0.02, 0.005)
         data = data.replace([0, "To demolish", "Under construction", "To restore"], np.nan)
         condition = data["Type of property"] == "apartment"
         sublist = ["Surface of the land"]
@@ -21,7 +20,7 @@ class DataCleaner():
         data = data.drop(["Number of rooms", "Garden Area", "Terrace Area"], axis = 1)
         data = data.dropna()
         data = data.rename(columns = {
-            "Locality": "locality",
+            "Post code": "code",
             "Type of property": "type",
             "Subtype of property":"subtype",
             "Price": "price",
@@ -39,14 +38,48 @@ class DataCleaner():
             "To be renovated": 2,
             "Normal": 4,
             "Fully renovated": 6,
-            "Excellent": 7,
+            "Excellent": 8,
             "New": 8
         })
         data = data[
             (data.living_area != 1) &
             (data.living_area != data.land_area)
         ]
+        data.price = (data.price / data.living_area) // 1
+        data = data.rename(columns={
+            "price":"price_m2"
+        })
         data = data.reset_index(drop = True)
+        data = DataCleaner.adjust_locality(data)
+        data = DataCleaner.trim_edges(data, 0.005, 0.005)
+        print("Optimizer: FINISHED")
+        return data
+
+    @staticmethod
+    def trim_edges(data: pd.DataFrame, start_prs: float, end_prs: float) -> pd.DataFrame:
+        if data is None or data.empty:
+            print("ERROR TRIMMING: No data provided.")
+            return data
+        total_rows = len(data)
+        trim_start = math.floor(total_rows * start_prs)
+        trim_end = math.floor(total_rows * end_prs)
+        if total_rows <= trim_start + trim_end:
+            print("ERROR TRIMMING: Dataset is too small to trim values.")
+            return data
+        data = data.sort_values("price_m2").iloc[
+            trim_start : total_rows - trim_end, :]
+        data = data.sort_values("living_area").iloc[
+            trim_start : total_rows - trim_end, :]
+        data = pd.concat(
+            data[data.type == "appartment"],
+            data[data.type == "house"].sort_values("land_area").iloc[
+                trim_start : total_rows - trim_end, :]
+        )
+        print(f"Trimming: OK. {(trim_start + trim_end) * 3} rows removed.")
+        return trimmed_data
+
+    @staticmethod
+    def adjust_locality(data: pd.DataFrame) -> pd.DataFrame:
         code_list = pd.read_csv("./data/external/postal_codes.csv")
         code_list.code = code_list.code.astype(str)
         with open("./data/raw/links.txt", "r", encoding="utf-8") as f:
@@ -68,29 +101,4 @@ class DataCleaner():
         data = data.merge(df, how="left", on="locality")
         data = data.merge(code_list, how="left", on="code")
         data = data.drop(["locality", "code"], axis = 1)
-        print("Optimizer: FINISHED")
         return data
-
-    @staticmethod
-    def trim_edges(data: pd.DataFrame, start_prs: float, end_prs: float) -> pd.DataFrame:
-        """
-        Removes 5% of the data from the beginning and 5% from the end.
-        Returns the trimmed list.
-        """
-
-        if data is None or data.empty:
-            print("No data provided.")
-            return data
-
-        total_rows = len(data)
-        trim_start = math.floor(total_rows * start_prs)
-        trim_end = math.floor(total_rows * end_prs)
-
-        if total_rows <= trim_start + trim_end:
-            print("Dataset too small to trim values from both ends.")
-            return data
-
-        trimmed_data = data.iloc[trim_start:total_rows-trim_end, :]
-
-        print(f"Trimmed {trim_start + trim_end} rows.")
-        return trimmed_data

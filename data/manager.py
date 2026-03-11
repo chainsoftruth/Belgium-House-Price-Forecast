@@ -1,3 +1,4 @@
+from datetime import datetime
 import pandas as pd
 import numpy as np
 import csv
@@ -23,7 +24,8 @@ class DataManager():
     @staticmethod
     def data_csv_export(data: list[dict[str: any]], filename: str):
         """Exporting data list (list of dicts) into .csv"""
-        file_name = f"./data/raw/{filename}.csv"
+        date_str = datetime.now().strftime("%d-%m-%Y")
+        file_name = f"./data/raw/{filename}_{date_str}.csv"
         columns = list(data[0].keys())
         file = open(file_name, "w", newline="", encoding="utf-8")
         writer = csv.DictWriter(file, columns)
