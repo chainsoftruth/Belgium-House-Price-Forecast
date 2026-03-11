@@ -13,6 +13,8 @@ class DataCleaner():
     
     @staticmethod
     def optimize(data: pd.DataFrame) -> pd.DataFrame:
+        dist = pd.read_csv("data/external/cords.csv")
+        dist["postcode"] = dist["postcode"].astype("string")
         data = data.replace([0, "To demolish", "Under construction", "To restore"], np.nan)
         condition = data["Type of property"] == "apartment"
         sublist = ["Surface of the land"]
@@ -20,7 +22,7 @@ class DataCleaner():
         data = data.drop(["Number of rooms", "Garden Area", "Terrace Area"], axis = 1)
         data = data.dropna()
         data = data.rename(columns = {
-            "Post code": "code",
+            "Post code": "postcode",
             "Type of property": "type",
             "Subtype of property":"subtype",
             "Price": "price",
@@ -33,6 +35,8 @@ class DataCleaner():
             "Furnished": "furnished",
             "Swimming pool": "pool"
         })
+        data = data.merge(dist[["postcode", "distance"]], on = "postcode", how = "left")
+        data = data.drop("postcode", axis = 1)
         data = data.replace({
             "To renovate": 2,
             "To be renovated": 2,
@@ -50,8 +54,9 @@ class DataCleaner():
             "price":"price_m2"
         })
         data = data.reset_index(drop = True)
-        data = DataCleaner.adjust_locality(data)
         data = DataCleaner.trim_edges(data, 0.005, 0.005)
+        data = data.sort_values("price_m2")
+        data = data.reset_index(drop = True)
         print("Optimizer: FINISHED")
         return data
 
@@ -70,35 +75,10 @@ class DataCleaner():
             trim_start : total_rows - trim_end, :]
         data = data.sort_values("living_area").iloc[
             trim_start : total_rows - trim_end, :]
-        data = pd.concat(
-            data[data.type == "appartment"],
+        data = pd.concat([
+            data[data.type == "apartment"],
             data[data.type == "house"].sort_values("land_area").iloc[
                 trim_start : total_rows - trim_end, :]
-        )
-        print(f"Trimming: OK. {(trim_start + trim_end) * 3} rows removed.")
-        return trimmed_data
-
-    @staticmethod
-    def adjust_locality(data: pd.DataFrame) -> pd.DataFrame:
-        code_list = pd.read_csv("./data/external/postal_codes.csv")
-        code_list.code = code_list.code.astype(str)
-        with open("./data/raw/links.txt", "r", encoding="utf-8") as f:
-            links = f.read()
-            f.close()
-        links = links.split('\n')
-        codes = []
-        names = []
-        for line in links:
-            codes.append(line.split("/")[7])
-            names.append(line.split("/")[8])
-        raw_data = {"code": codes, "locality": names}
-        df = pd.DataFrame(raw_data)
-        df = df.drop_duplicates("locality").reset_index(drop = True)
-        data.locality = data.locality.apply(
-            lambda x: 
-            unidecode(x.lower().replace(" ", "-").replace("'", "-")))
-        data.insert(0, "index", data.index)
-        data = data.merge(df, how="left", on="locality")
-        data = data.merge(code_list, how="left", on="code")
-        data = data.drop(["locality", "code"], axis = 1)
+        ])
+        print(f"Trimming: OK. {total_rows - len(data)} rows removed.")
         return data

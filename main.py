@@ -6,6 +6,7 @@ from tqdm import tqdm
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import requests
 import pandas as pd
+import numpy as np
 
 def update_links() -> list[str]:
     links = Links()
@@ -32,7 +33,6 @@ def _scrape_property(link):
 
 def update_dataset():
     links = DataManager.links_import()
-    links = links[:500]
     data_list = []
     with ThreadPoolExecutor(max_workers=10) as executor:
         futures = [executor.submit(_scrape_property, link) for link in links]
@@ -43,7 +43,12 @@ def update_dataset():
     DataManager.data_csv_export(data_list, "raw_dataset")
     
 def clear_data() -> pd.DataFrame:
-    data = DataManager.raw_data_csv_import()
+    data = DataManager.raw_data_csv_import("raw_dataset")
     clean_data = DataCleaner.optimize(data)
     DataManager.dataframe_csv_export(clean_data, "clean_dataset")
     DataCleaner.check(clean_data)
+
+data = DataManager.csv_import("clean_dataset")
+price_m2 = np.array(data.price_m2)
+distance = np.array(data.distance)
+print(np.corrcoef(price_m2, distance)[0,1])

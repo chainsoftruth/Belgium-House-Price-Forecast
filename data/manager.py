@@ -33,6 +33,8 @@ class DataManager():
         for row in data:
             writer.writerow(row)
         file.close()
+        with open("./data/raw/updating_dates.txt", 'a') as f:
+            f.write(date_str + "\n")
         print("CSV updated.")
 
     @staticmethod
@@ -46,7 +48,7 @@ class DataManager():
         print("DataFrame export: OK")
 
     @staticmethod
-    def raw_data_csv_import() -> pd.DataFrame:
+    def raw_data_csv_import(filename: str) -> pd.DataFrame:
         """
         - Importing data from "./data/raw/raw_dataset.csv".
         - Converting all values to its' types.
@@ -54,8 +56,14 @@ class DataManager():
 
         Return: pandas.DataFrame - data from file.
         """
-        dataset = pd.read_csv("./data/raw/raw_dataset.csv", na_values = ["None", "", "unknown"])
-        strings = ["Locality", "Type of property", "Subtype of property", 
+        date = ""
+        with open("./data/raw/updating_dates.txt", 'r') as f:
+            lines = f.readlines()
+            if not lines:
+                raise Exception("No dataset to import.")
+            date = lines[-1].strip()
+        dataset = pd.read_csv(f"./data/raw/{filename}_{date}.csv", na_values = ["None", "", "unknown"])
+        strings = ["Post code", "Type of property", "Subtype of property", 
         "State of the building"]
         numbers = ["Price", "Number of rooms", "Living Area", "Terrace Area",
         "Garden Area", "Surface of the land", "Number of facades"]
