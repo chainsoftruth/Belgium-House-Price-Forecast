@@ -49,13 +49,9 @@ class DataCleaner():
             (data.living_area != 1) &
             (data.living_area != data.land_area)
         ]
-        data.price = (data.price / data.living_area) // 1
-        data = data.rename(columns={
-            "price":"price_m2"
-        })
         data = data.reset_index(drop = True)
         data = DataCleaner.trim_edges(data, 0.005, 0.005)
-        data = data.sort_values("price_m2")
+        data = data.sort_values("price")
         data = data.reset_index(drop = True)
         print("Optimizer: FINISHED")
         return data
@@ -71,7 +67,7 @@ class DataCleaner():
         if total_rows <= trim_start + trim_end:
             print("ERROR TRIMMING: Dataset is too small to trim values.")
             return data
-        data = data.sort_values("price_m2").iloc[
+        data = data.sort_values("price").iloc[
             trim_start : total_rows - trim_end, :]
         data = data.sort_values("living_area").iloc[
             trim_start : total_rows - trim_end, :]

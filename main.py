@@ -2,6 +2,7 @@ from data.manager import DataManager
 from domain.links import Links
 from domain.scraper import PropertyScraper
 from domain.data_cleaner import DataCleaner
+from domain.regressor import Regressor
 from tqdm import tqdm
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import requests
@@ -49,6 +50,4 @@ def clear_data() -> pd.DataFrame:
     DataCleaner.check(clean_data)
 
 data = DataManager.csv_import("clean_dataset")
-price_m2 = np.array(data.price_m2)
-distance = np.array(data.distance)
-print(np.corrcoef(price_m2, distance)[0,1])
+regressor = Regressor(data)
