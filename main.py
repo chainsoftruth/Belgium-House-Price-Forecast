@@ -49,7 +49,8 @@ def clear_data() -> pd.DataFrame:
     DataManager.dataframe_csv_export(clean_data, "clean_dataset")
     DataCleaner.check(clean_data)
 
-clear_data()
-# data = DataManager.csv_import("clean_dataset")
-# regressor = Regressor(data)
-# regressor.set_linear()
+data = DataManager.csv_import("clean_dataset")
+regressor = Regressor(data)
+regressor.set_linear()
+regressor.set_randomforest()
+regressor.set_gradientboosting()
