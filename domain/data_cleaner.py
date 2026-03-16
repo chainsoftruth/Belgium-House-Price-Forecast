@@ -20,7 +20,6 @@ class DataCleaner():
         sublist = ["Surface of the land"]
         data.loc[condition, sublist] = data.loc[condition, sublist].fillna(0)
         data = data.drop(["Number of rooms", "Garden Area", "Terrace Area"], axis = 1)
-        data = data.dropna()
         data = data.rename(columns = {
             "Post code": "postcode",
             "Type of property": "type",
@@ -35,24 +34,25 @@ class DataCleaner():
             "Furnished": "furnished",
             "Swimming pool": "pool"
         })
+        data = data.dropna(subset = data.columns.drop(["state", "facades"]))
         data = data.merge(dist[["postcode", "distance"]], on = "postcode", how = "left")
         data = data.drop("postcode", axis = 1)
         data = data.replace({
-            "To renovate": 2,
-            "To be renovated": 2,
-            "Normal": 4,
-            "Fully renovated": 6,
-            "Excellent": 8,
-            "New": 8
+            "To renovate": 1,
+            "To be renovated": 1,
+            "Normal": 2,
+            "Fully renovated": 3,
+            "Excellent": 4,
+            "New": 4
         })
         data = data[
             (data.living_area != 1) &
             (data.living_area != data.land_area)
         ]
-        data = data.reset_index(drop = True)
-        data = DataCleaner.trim_edges(data, 0.005, 0.005)
+        data = DataCleaner.trim_edges(data, 0.0025, 0.0025)
         data = data.sort_values("price")
         data = data.reset_index(drop = True)
+        data = data.dropna()
         print("Optimizer: FINISHED")
         return data
 
@@ -67,10 +67,19 @@ class DataCleaner():
         if total_rows <= trim_start + trim_end:
             print("ERROR TRIMMING: Dataset is too small to trim values.")
             return data
-        data = data.sort_values("price").iloc[
+        
+        data = pd.concat([
+            data[data.type == "apartment"].sort_values("price").iloc[
+            trim_start : total_rows - trim_end, :],
+            data[data.type == "house"].sort_values("price").iloc[
             trim_start : total_rows - trim_end, :]
-        data = data.sort_values("living_area").iloc[
+        ])
+        data = pd.concat([
+            data[data.type == "apartment"].sort_values("living_area").iloc[
+            trim_start : total_rows - trim_end, :],
+            data[data.type == "house"].sort_values("living_area").iloc[
             trim_start : total_rows - trim_end, :]
+        ])
         data = pd.concat([
             data[data.type == "apartment"],
             data[data.type == "house"].sort_values("land_area").iloc[

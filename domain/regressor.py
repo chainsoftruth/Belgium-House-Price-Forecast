@@ -18,16 +18,18 @@ class Regressor():
         apy = self._apartments.price
         hX = self._houses.drop("price", axis=1)
         apX = self._apartments.drop("price", axis=1)
-        hX_train, hX_test, hy_train, hy_test = train_test_split(hX, hy, random_state = 24, test_size = 0.2)
-        apX_train, apX_test, apy_train, apy_test = train_test_split(apX, apy, random_state = 24, test_size = 0.2)
+        self.hX_train, self.hX_test, self.hy_train, self.hy_test = train_test_split(hX, hy, random_state = 24, test_size = 0.2)
+        self.apX_train, self.apX_test, self.apy_train, self.apy_test = train_test_split(apX, apy, random_state = 24, test_size = 0.2)
+    
+    def set_linear(self, property: dict) -> int:
         self.h_scaler = StandardScaler()
         self.h_scaler.fit(hX_train)
-        hX_train = self.h_scaler.transform(hX_train)
-        hX_test = self.h_scaler.transform(hX_test)
+        self.hX_train = self.h_scaler.transform(self.hX_train)
+        self.hX_test = self.h_scaler.transform(self.hX_test)
         self.ap_scaler = StandardScaler()
         self.ap_scaler.fit(apX_train)
-        apX_train = self.ap_scaler.transform(apX_train)
-        apX_test = self.ap_scaler.transform(apX_test)
+        self.apX_train = self.ap_scaler.transform(self.apX_train)
+        self.apX_test = self.ap_scaler.transform(self.apX_test)
         self.h_pipeline = Pipeline([
             ("poly", PolynomialFeatures(degree = 2)),
             ("model", LinearRegression())
@@ -36,14 +38,11 @@ class Regressor():
             ("poly", PolynomialFeatures(degree = 2)),
             ("model", LinearRegression())
         ])
-        self.h_pipeline.fit(hX_train, hy_train)
-        self.ap_pipeline.fit(apX_train, apy_train)
+        self.h_pipeline.fit(self.hX_train, self.hy_train)
+        self.ap_pipeline.fit(self.apX_train, self.apy_train)
         print("Model trained: OK.")
-        print(f"H. score: {self.h_pipeline.score(hX_test, hy_test)}")
-        print(f"Ap. score: {self.ap_pipeline.score(apX_test, apy_test)}")
-    
-    def predict(property: dict) -> int:
-        pass
+        print(f"H. score: {self.h_pipeline.score(self.hX_test, hy_test)}")
+        print(f"Ap. score: {self.ap_pipeline.score(self.apX_test, self.apy_test)}")
 
     @staticmethod
     def _subtype_replace(str):
