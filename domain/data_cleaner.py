@@ -52,9 +52,10 @@ class DataCleaner():
         data = DataCleaner.trim_edges(data, 0.0025, 0.0025)
         data = data.sort_values("price")
         data = data.reset_index(drop = True)
+        dropped_values = data[(data.state.isna())|(data.facades.isna())]
         data = data.dropna()
         print("Optimizer: FINISHED")
-        return data
+        return data, dropped_values
 
     @staticmethod
     def trim_edges(data: pd.DataFrame, start_prs: float, end_prs: float) -> pd.DataFrame:

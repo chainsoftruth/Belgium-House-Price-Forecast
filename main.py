@@ -3,6 +3,7 @@ from domain.links import Links
 from domain.scraper import PropertyScraper
 from domain.data_cleaner import DataCleaner
 from domain.regressor import Regressor
+from domain.classifier import Classifier
 from tqdm import tqdm
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import requests
@@ -45,12 +46,19 @@ def update_dataset():
     
 def clear_data() -> pd.DataFrame:
     data = DataManager.raw_data_csv_import("raw_dataset")
-    clean_data = DataCleaner.optimize(data)
+    clean_data, dropped_data = DataCleaner.optimize(data)
     DataManager.dataframe_csv_export(clean_data, "clean_dataset")
+    DataManager.dataframe_csv_export(dropped_data, "dropped_data")
     DataCleaner.check(clean_data)
 
-data = DataManager.csv_import("clean_dataset")
-regressor = Regressor(data)
-regressor.set_linear()
-regressor.set_randomforest()
-regressor.set_gradientboosting()
+def classify_facadesNstate():
+    data = DataManager.csv_import("clean_dataset")
+    classifier = Classifier(data)
+    classifier.set_randomforest()
+    dropped_data = DataManager.csv_import("dropped_data")
+    facades, state = classifier.predict(dropped_data)
+    dropped_data["facades"] = facades
+    dropped_data["state"] = state
+    print(dropped_data.head(50))
+
+classify_facadesNstate()
