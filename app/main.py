@@ -113,4 +113,4 @@ def predict(value: PropertyRequest):
     prediction = model.predict(X)[0]
     return {"prediction": prediction, "status": "OK"}
 
-train_regression()
+print("RUNNING FILE: app/main.py")
