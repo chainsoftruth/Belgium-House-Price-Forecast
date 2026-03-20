@@ -1,6 +1,7 @@
 .vscode
 .ipynb_checkpoints
-data/__pycache__
-domain/__pycache__
-domain/analysis/.ipynb_checkpoints
-data/external/.ipynb_checkpoints
+app/data/__pycache__
+app/domain/__pycache__
+app/domain/analysis/.ipynb_checkpoints
+app/data/external/.ipynb_checkpoints
+app/data/raw/all_properties_data_wip.csv
