@@ -1,5 +1,7 @@
 .vscode
 .ipynb_checkpoints
+__pycache__
+app/__pycache__
 app/data/__pycache__
 app/domain/__pycache__
 app/domain/analysis/.ipynb_checkpoints
