@@ -9,6 +9,7 @@ from app.domain.classifier import Classifier
 from tqdm import tqdm
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from fastapi import FastAPI
+from fastapi.responses import FileResponse
 import requests
 import pandas as pd
 import joblib
@@ -98,6 +99,14 @@ def _extract_data(value: PropertyRequest) -> pd.DataFrame:
     X.columns = ['subtype', 'living_area', 'land_area', 'facades', 'state', 
         'furnished', 'terrace', 'garden', 'pool', 'distance']
     return X
+
+@app.get("/")
+def index():
+    return {"Server status": "Alive"}
+
+@app.get("/predict")
+def get_predict():
+    return FileResponse("app/data/external/predict_explain.html")
 
 @app.post("/predict")
 def predict(value: PropertyRequest):

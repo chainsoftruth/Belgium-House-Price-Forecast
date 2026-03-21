@@ -1,0 +1,33 @@
+<html>
+    <head><title>FastAPI HTML</title></head>
+    <body>
+        <h1>Request body info</h1>
+        <h2>What expected</h2>
+        <pre>
+Json with scructure:
+{
+    "data": {
+        "area": int,
+        "property-type": "APARTMENT" | "HOUSE",
+        "property-subtype": str,
+        "rooms-number": int,
+        "zip-code": int,
+        "land-area": Optional[int],
+        "garden": Optional[bool],
+        "garden-area": Optional[int],
+        "equipped-kitchen": Optional[bool],
+        "full-address": Optional[str],
+        "swimming-pool": Optional[bool],
+        "furnished": Optional[bool],
+        "open-fire": Optional[bool],
+        "terrace": Optional[bool],
+        "terrace-area": Optional[int],
+        "facades-number": Optional[int],
+        "building-state": Optional[
+            "NEW" | "GOOD" | "TO RENOVATE" | "JUST RENOVATED" | "TO REBUILD"
+        ]
+    }
+}
+        </pre>
+    </body>
+</html>
