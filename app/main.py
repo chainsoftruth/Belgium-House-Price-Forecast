@@ -14,8 +14,6 @@ import requests
 import pandas as pd
 import joblib
 
-app = FastAPI()
-
 def update_links() -> list[str]:
     links = Links()
     print("SCRAPING...")
@@ -72,14 +70,7 @@ def train_regression():
     data = DataManager.csv_import("clean_dataset")
     regressor = Regressor(data)
     regressor.set_gradientboosting()
-    joblib.dump({
-        "scaler": regressor.h_scaler,
-        "model": regressor.h_model,
-    }, "app/domain/joblib/h_regression.joblib")
-    joblib.dump({
-        "scaler": regressor.ap_scaler,
-        "model": regressor.ap_model,
-    }, "app/domain/joblib/ap_regression.joblib")
+    # Can create model files here
 
 def _extract_data(value: PropertyRequest) -> pd.DataFrame:
     value = value.data
@@ -99,27 +90,5 @@ def _extract_data(value: PropertyRequest) -> pd.DataFrame:
     X.columns = ['subtype', 'living_area', 'land_area', 'facades', 'state', 
         'furnished', 'terrace', 'garden', 'pool', 'distance']
     return X
-
-@app.get("/")
-def index():
-    return {"Server status": "Alive"}
-
-@app.get("/predict")
-def get_predict():
-    return FileResponse("app/data/external/predict_explain.html")
-
-@app.post("/predict")
-def predict(value: PropertyRequest):
-    X = _extract_data(value)
-    if value.data.property_type == "HOUSE":
-        jbl = joblib.load("app/domain/joblib/h_regression.joblib")
-    else:
-        jbl = joblib.load("app/domain/joblib/ap_regression.joblib")
-        X = X.drop("land_area", axis = 1)
-    scaler = jbl["scaler"]
-    model = jbl["model"]
-    X = scaler.transform(X)
-    prediction = model.predict(X)[0]
-    return {"prediction": prediction, "status": "OK"}
 
 print("RUNNING FILE: app/main.py")
