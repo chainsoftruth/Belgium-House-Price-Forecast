@@ -1,0 +1,15 @@
+name: Belgium-House-Price-Forecast
+channels:
+  - defaults
+dependencies:
+  - python=3.13
+  - bs4
+  - requests
+  - pandas
+  - tqdm
+  - notebook
+  - unidecode
+  - geopandas
+  - seaborn
+  - geopy
+  - fastapi

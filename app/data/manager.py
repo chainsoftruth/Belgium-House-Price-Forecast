@@ -1,3 +1,4 @@
+from datetime import datetime
 import pandas as pd
 import numpy as np
 import csv
@@ -7,7 +8,7 @@ class DataManager():
     @staticmethod
     def links_export(links: list[str]):
         """Exporting links to .txt"""
-        with open("./data/raw/links.txt", "w") as file:
+        with open("./app/data/raw/links.txt", "w") as file:
             for link in links:
                 file.write(f"{link}\n")
         print("links.txt updated.")
@@ -15,7 +16,7 @@ class DataManager():
     @staticmethod
     def links_import() -> list[str]:
         """Importing links from .txt"""
-        with open("./data/raw/links.txt", "r") as file:
+        with open("./app/data/raw/links.txt", "r") as file:
             lines = [line.strip() for line in file if line.strip()]
         print("Links import: OK")
         return lines
@@ -23,7 +24,8 @@ class DataManager():
     @staticmethod
     def data_csv_export(data: list[dict[str: any]], filename: str):
         """Exporting data list (list of dicts) into .csv"""
-        file_name = f"./data/raw/{filename}.csv"
+        date_str = datetime.now().strftime("%d-%m-%Y")
+        file_name = f"./app/data/raw/{filename}_{date_str}.csv"
         columns = list(data[0].keys())
         file = open(file_name, "w", newline="", encoding="utf-8")
         writer = csv.DictWriter(file, columns)
@@ -31,6 +33,8 @@ class DataManager():
         for row in data:
             writer.writerow(row)
         file.close()
+        with open("./app/data/raw/updating_dates.txt", 'a') as f:
+            f.write(date_str + "\n")
         print("CSV updated.")
 
     @staticmethod
@@ -39,12 +43,12 @@ class DataManager():
         if data is None or data.empty:
             print("No data to export.")
             return
-        file_name = f"./data/{filename}.csv"
+        file_name = f"./app/data/{filename}.csv"
         data.to_csv(file_name, index=False)
         print("DataFrame export: OK")
 
     @staticmethod
-    def raw_data_csv_import() -> pd.DataFrame:
+    def raw_data_csv_import(filename: str) -> pd.DataFrame:
         """
         - Importing data from "./data/raw/raw_dataset.csv".
         - Converting all values to its' types.
@@ -52,8 +56,14 @@ class DataManager():
 
         Return: pandas.DataFrame - data from file.
         """
-        dataset = pd.read_csv("./data/raw/raw_dataset.csv", na_values = ["None", "", "unknown"])
-        strings = ["Locality", "Type of property", "Subtype of property", 
+        date = ""
+        with open("./app/data/raw/updating_dates.txt", 'r') as f:
+            lines = f.readlines()
+            if not lines:
+                raise Exception("No dataset to import.")
+            date = lines[-1].strip()
+        dataset = pd.read_csv(f"./app/data/raw/{filename}_{date}.csv", na_values = ["None", "", "unknown"])
+        strings = ["Post code", "Type of property", "Subtype of property", 
         "State of the building"]
         numbers = ["Price", "Number of rooms", "Living Area", "Terrace Area",
         "Garden Area", "Surface of the land", "Number of facades"]
@@ -67,5 +77,5 @@ class DataManager():
         return dataset
     
     def csv_import(filename: str) -> pd.DataFrame:
-        data = pd.read_csv(f"./data/{filename}.csv")
+        data = pd.read_csv(f"./app/data/{filename}.csv")
         return data

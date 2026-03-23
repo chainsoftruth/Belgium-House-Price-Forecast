@@ -1,8 +1,8 @@
 import requests
 import re
 from bs4 import BeautifulSoup as bs
-from domain.scraper import PropertyScraper
-from domain.price_range import PriceRanges as pr
+from app.domain.scraper import PropertyScraper
+from app.domain.price_range import PriceRanges as pr
 
 class Links():
     
