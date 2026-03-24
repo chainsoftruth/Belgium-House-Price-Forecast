@@ -8,11 +8,39 @@ from app.domain.classifier import Classifier
 
 from tqdm import tqdm
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from fastapi import FastAPI
-from fastapi.responses import FileResponse
+from fastapi import FastAPI, HTTPException
 import requests
 import pandas as pd
-import joblib
+
+# -------------------------------
+# CREATE FASTAPI APP
+# -------------------------------
+
+app = FastAPI()
+
+# -------------------------------
+# TRAIN MODEL ON STARTUP
+# -------------------------------
+
+print("Loading dataset and training model...")
+
+df = DataManager.csv_import("clean_dataset")
+
+regressor = Regressor(df)
+regressor.set_gradientboosting()
+
+# Store trained models and scalers
+h_model = regressor.h_model
+h_scaler = regressor.h_scaler
+
+ap_model = regressor.ap_model
+ap_scaler = regressor.ap_scaler
+
+print("Models ready ✅")
+
+# -------------------------------
+# SCRAPING FUNCTIONS (OPTIONAL)
+# -------------------------------
 
 def update_links() -> list[str]:
     links = Links()
@@ -47,7 +75,11 @@ def update_dataset():
             if data is not None:
                 data_list.append(data)
     DataManager.data_csv_export(data_list, "raw_dataset")
-    
+
+# -------------------------------
+# DATA CLEANING
+# -------------------------------
+
 def clear_data() -> pd.DataFrame:
     data = DataManager.raw_data_csv_import("raw_dataset")
     clean_data, dropped_data = DataCleaner.optimize(data)
@@ -55,25 +87,13 @@ def clear_data() -> pd.DataFrame:
     DataManager.dataframe_csv_export(dropped_data, "dropped_data")
     DataCleaner.check(clean_data)
 
-def classify_facadesNstate():
-    data = DataManager.csv_import("clean_dataset")
-    classifier = Classifier(data)
-    classifier.set_randomforest()
-    dropped_data = DataManager.csv_import("dropped_data")
-    facades, state = classifier.predict(dropped_data)
-    dropped_data["facades"] = facades
-    dropped_data["state"] = state
-    print(dropped_data.head(50))
-    print(dropped_data.shape)
-
-def train_regression():
-    data = DataManager.csv_import("clean_dataset")
-    regressor = Regressor(data)
-    regressor.set_gradientboosting()
-    # Can create model files here
+# -------------------------------
+# FEATURE ENGINEERING
+# -------------------------------
 
 def _extract_data(value: PropertyRequest) -> pd.DataFrame:
     value = value.data
+
     X = pd.Series([
         DataCleaner.get_subtype_code(value.property_subtype.lower()),
         value.area,
@@ -85,10 +105,63 @@ def _extract_data(value: PropertyRequest) -> pd.DataFrame:
         value.garden,
         value.swimming_pool,
         DataCleaner.get_distance(
-            pd.read_csv("app/data/external/cords.csv"), str(value.zip_code))
+            pd.read_csv("app/data/external/cords.csv"),
+            str(value.zip_code)
+        )
     ]).to_frame().T
-    X.columns = ['subtype', 'living_area', 'land_area', 'facades', 'state', 
-        'furnished', 'terrace', 'garden', 'pool', 'distance']
+
+    X.columns = [
+        'subtype', 'living_area', 'land_area', 'facades', 'state',
+        'furnished', 'terrace', 'garden', 'pool', 'distance'
+    ]
+
     return X
+
+# -------------------------------
+# PREDICTION LOGIC
+# -------------------------------
+
+def predict_price(df: pd.DataFrame, property_type: str) -> float:
+
+    if property_type == "HOUSE":
+        X_scaled = h_scaler.transform(df)
+        prediction = h_model.predict(X_scaled)[0]
+
+    else:
+        # Apartments do not use land_area
+        df = df.drop("land_area", axis=1, errors="ignore")
+        X_scaled = ap_scaler.transform(df)
+        prediction = ap_model.predict(X_scaled)[0]
+
+    return prediction
+
+# -------------------------------
+# API ROUTES
+# -------------------------------
+
+@app.get("/")
+def root():
+    return {"status": "alive"}
+
+@app.get("/predict")
+def predict_info():
+    return {
+        "message": "Send a POST request with property data in JSON format"
+    }
+
+@app.post("/predict")
+def predict_endpoint(request: PropertyRequest):
+    try:
+        df = _extract_data(request)
+        property_type = request.data.property_type
+        price = predict_price(df, property_type)
+
+        return {
+            "prediction": float(price),
+            "status_code": 200
+        }
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 print("RUNNING FILE: app/main.py")

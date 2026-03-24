@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+pandas
+numpy
+scikit-learn
+joblib
+requests
+beautifulsoup4
+lxml
+unidecode
+tqdm
