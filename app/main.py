@@ -1,5 +1,4 @@
 from app.data.manager import DataManager
-from app.data.property_model import *
 from app.domain.links import Links
 from app.domain.scraper import PropertyScraper
 from app.domain.data_cleaner import DataCleaner
@@ -71,24 +70,16 @@ def train_regression():
     regressor = Regressor(data)
     regressor.set_gradientboosting()
     # Can create model files here
+    h_model = {
+        "scaler": regressor.h_scaler,
+        "model": regressor.h_model,
+    }
+    ap_model = {
+        "scaler": regressor.ap_scaler,
+        "model": regressor.ap_model,
+    }
 
-def _extract_data(value: PropertyRequest) -> pd.DataFrame:
-    value = value.data
-    X = pd.Series([
-        DataCleaner.get_subtype_code(value.property_subtype.lower()),
-        value.area,
-        value.land_area,
-        value.facades_number,
-        DataCleaner.get_state_code(value.building_state),
-        value.furnished,
-        value.terrace,
-        value.garden,
-        value.swimming_pool,
-        DataCleaner.get_distance(
-            pd.read_csv("app/data/external/cords.csv"), str(value.zip_code))
-    ]).to_frame().T
-    X.columns = ['subtype', 'living_area', 'land_area', 'facades', 'state', 
-        'furnished', 'terrace', 'garden', 'pool', 'distance']
-    return X
-
-print("RUNNING FILE: app/main.py")
+    # Save each model with a unique name
+    joblib.dump(h_model, "h_regressorion.joblib")
+    joblib.dump(ap_model, "ap_regressorion.joblib")
+    print("Models saved as h_regressorion.joblib and ap_regressorion.joblib")
