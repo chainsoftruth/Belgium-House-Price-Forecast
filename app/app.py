@@ -99,6 +99,11 @@ def predict_price(property_input: PropertyInput):
     value = property_input.data
     X = prepare_features(value)
 
+    # Remove land_area column for apartments
+    if value.property_type == PropertyType.APARTMENT:
+        if "land_area" in X.columns:
+            X = X.drop(columns=["land_area"])
+
     # Select model
     property_type = value.property_type.lower()
     if property_type == "house":
